@@ -31,12 +31,19 @@ const Home = () => {
   useEffect(() => {
     fetchData(activelink);
   }, [activelink]);
-  return(
-  <div>
+  return (
+    <div>
       <ul className="nav nav-pills justify-content-center">
         {buttons.map((button, index) => (
-          <li key={index} className={`nav-item btn ${activelink === index ? 'active' : ''}`}>
-            <a className={`nav-link ${activelink === index ? 'active' : ''}`} href="#" onClick={() => handleclick(index)}>
+          <li
+            key={index}
+            className={`nav-item btn ${activelink === index ? "active" : ""}`}
+          >
+            <a
+              className={`nav-link ${activelink === index ? "active" : ""}`}
+              href="#"
+              onClick={() => handleclick(index)}
+            >
               {button}
             </a>
           </li>
@@ -65,7 +72,7 @@ const Home = () => {
           </tbody>
         </table>
       )}
-  </div>
+    </div>
   );
 }
 
