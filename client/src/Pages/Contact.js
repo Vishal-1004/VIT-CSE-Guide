@@ -1,14 +1,4 @@
 import React from "react";
-import {
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBBtn,
-} from "mdb-react-ui-kit";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function ProfilePage() {
@@ -55,7 +45,7 @@ export default function ProfilePage() {
                       className="form-control rounded-0"
                       id="email"
                       name="email"
-                      placeholder="Email"
+                      placeholder="College Email"
                       type="email"
                       required
                     />
@@ -84,85 +74,6 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
-        <MDBContainer className="my-2">
-          <div className="my-1">
-            <h1 className="my-0 main-heading">Developers</h1>
-            <hr style={{ border: "3px solid #516beb" }} />
-          </div>
-          <MDBRow className="my-4">
-            <MDBCol lg="4">
-              <MDBCard className="mb-4">
-                <MDBCardBody className="text-center">
-                  <MDBCardImage
-                    src="./vishal_image.png"
-                    alt="avatar"
-                    className="rounded-circle"
-                    style={{ width: "125px" }}
-                    fluid
-                  />
-                  <p className="text-muted mb-1">Vishal Kumar Yadav</p>
-                  <p className="text-muted mb-4">
-                    Full Stack (MERN) Web Developer | VIT Chennai
-                  </p>
-                  <div className="d-flex justify-content-center mb-2">
-                    <Link
-                      to="https://www.linkedin.com/in/vishal-kumar-yadav-8085a3232/"
-                      target="_blank"
-                    >
-                      <button className="btn btn-outline-primary ms-1">
-                        Connect
-                      </button>
-                    </Link>
-                  </div>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-            <MDBCol lg="4">
-              <MDBCard className="mb-4">
-                <MDBCardBody className="text-center">
-                  <MDBCardImage
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                    alt="avatar"
-                    className="rounded-circle"
-                    style={{ width: "125px" }}
-                    fluid
-                  />
-                  <p className="text-muted mb-1">Vishal Kumar Yadav</p>
-                  <p className="text-muted mb-4">
-                    Full Stack (MERN) Web Developer | VIT Chennai
-                  </p>
-                  <div className="d-flex justify-content-center mb-2">
-                    <MDBBtn outline className="ms-1">
-                      Connect
-                    </MDBBtn>
-                  </div>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-            <MDBCol lg="4">
-              <MDBCard className="mb-4">
-                <MDBCardBody className="text-center">
-                  <MDBCardImage
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                    alt="avatar"
-                    className="rounded-circle"
-                    style={{ width: "125px" }}
-                    fluid
-                  />
-                  <p className="text-muted mb-1">Vishal Kumar Yadav</p>
-                  <p className="text-muted mb-4">
-                    Full Stack (MERN) Web Developer | VIT Chennai
-                  </p>
-                  <div className="d-flex justify-content-center mb-2">
-                    <MDBBtn outline className="ms-1">
-                      Connect
-                    </MDBBtn>
-                  </div>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-          </MDBRow>
-        </MDBContainer>
       </ContactUsStyle>
     </section>
   );

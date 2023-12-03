@@ -10,9 +10,9 @@ const Navbar = () => {
         style={{ backgroundColor: "#516BEB" }}
       >
         <div className="container-fluid">
-          <a className="btn btn-outline-light logo" href="/">
+          <Link className="btn btn-outline-light logo" to="/">
             VIT-CSE-Guide
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -26,7 +26,7 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item mx-3 dropdown">
+              <li className="nav-item mx-2 dropdown">
                 <a
                   className="nav-link dropdown-toggle"
                   href="/"
@@ -116,7 +116,7 @@ const Navbar = () => {
                   </ul>
                 </div>
               </li>
-              <li className="nav-item dropdown">
+              <li className="nav-item mx-2 dropdown">
                 <a
                   className="nav-link dropdown-toggle"
                   href="/"
@@ -125,7 +125,7 @@ const Navbar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Discipline Linked
+                  Discipline-Linked
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <ul>
@@ -155,10 +155,29 @@ const Navbar = () => {
                       </a>
                     </li>
                   </ul>
+                </div>
+              </li>
+              <li className="nav-item mx-2 dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="/"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Discipline Electives
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <ul>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Discipline Core
+                        Discipline Elective
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/">
+                        Mega Menu Link
                       </a>
                     </li>
                     <li>
@@ -177,10 +196,24 @@ const Navbar = () => {
                       </a>
                     </li>
                   </ul>
+                </div>
+              </li>
+              <li className="nav-item mx-2 dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="/"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Discipline Core
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <ul>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Discipline Elective
+                        Discipline Core
                       </a>
                     </li>
                     <li>
