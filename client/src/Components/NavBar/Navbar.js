@@ -40,77 +40,70 @@ const Navbar = () => {
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <ul>
                     <li>
-                      <a className="dropdown-item" href="/">
+                      <Link className="dropdown-item" to="/">
                         Basic Science & Maths
+                      </Link>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/">
+                        Engineering Chemistry
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Calculus
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Differential Equa. & Transforms
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Complex Variables & Linear Alg.
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Probability & Statistics
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/">
+                        Engineering Physics
                       </a>
                     </li>
                   </ul>
                   <ul>
                     <li>
-                      <a className="dropdown-item" href="/">
+                      <Link className="dropdown-item" to="/">
                         Basic Engineering Sci.
+                      </Link>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/">
+                        Computer Programming: Python
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Structured & Object-Oriented Programming
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Computer Programming: Java
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
-                      </a>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        HSM
+                        Basic Electronics
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Mega Menu Link
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Mega Menu Link
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Basic Electrical Engineering
                       </a>
                     </li>
                   </ul>
@@ -130,28 +123,23 @@ const Navbar = () => {
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <ul>
                     <li>
+                      <Link className="dropdown-item" to="/">
+                        Engineering Science
+                      </Link>
+                    </li>
+                    <li>
                       <a className="dropdown-item" href="/">
-                        Engineering Sci.
+                        Digital Systems Design
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Microprocessors and Microcontrollers
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Mega Menu Link
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Discrete Mathematics and Graph Theory
                       </a>
                     </li>
                   </ul>
@@ -171,28 +159,23 @@ const Navbar = () => {
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <ul>
                     <li>
-                      <a className="dropdown-item" href="/">
+                      <Link className="dropdown-item" to="/">
                         Discipline Elective
+                      </Link>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/">
+                        Machine Learning
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Internet and Web Programming
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Mega Menu Link
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Digital Image Processing
                       </a>
                     </li>
                   </ul>
@@ -212,28 +195,68 @@ const Navbar = () => {
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <ul>
                     <li>
-                      <a className="dropdown-item" href="/">
+                      <Link className="dropdown-item" to="/">
                         Discipline Core
+                      </Link>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/">
+                        Data Structures and Algorithms
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Design and Analysis of Algorithms
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Computer Architecture and Organization
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Software Engineering
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Mega Menu Link
+                        Database Systems
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/">
+                        Operating Systems
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/">
+                        Theory of Computation
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/">
+                        Embedded Systems
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/">
+                        Artificial Intelligence
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/">
+                        Compiler Design
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/">
+                        Computer Networks
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/">
+                        Cryptography and Network Security
                       </a>
                     </li>
                   </ul>
