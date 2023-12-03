@@ -1,0 +1,45 @@
+.h1-style{
+    display: inline-block;
+    font-size: 2.5rem;
+    font-weight: 400 !important;
+    border-bottom: 3px solid #516beb;
+}
+
+.p-style{
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.table-style{
+    margin: 0 auto;
+   width: 80%;
+}
+
+.btn-style{
+    background-color: #516beb !important;
+}
+
+.click-style{
+    border: 1px solid #516beb !important;
+    color: #516beb;
+}
+
+.click-style:hover{
+    background-color: #516beb;
+    color: white;
+}
+
+@media screen and (max-width: 780px) {
+    /* Styles for devices with a screen width up to 600px */
+    .table-style{
+        width: 95%;
+    }
+
+    th:first-child {
+        display: none;
+      }
+
+      td:first-child {
+        display: none;
+      }
+  }
