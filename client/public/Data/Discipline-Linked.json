@@ -1,0 +1,5 @@
+[
+  { "SNo": 1, "Course Title": "Digital Systems Design", "Credits": "3.0","Syllabus":"https://www.google.com/" },
+  { "SNo": 2, "Course Title": "Microprocessors and Microcontrollers", "Credits": "3.0","Syllabus":"https://www.google.com/" },
+  { "SNo": 3, "Course Title": "Discrete Mathematics and Graph Theory", "Credits": "4.0","Syllabus":"https://www.google.com/" }
+]

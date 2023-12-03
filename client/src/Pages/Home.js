@@ -9,16 +9,17 @@ const Home = () => {
   }
 
   const buttons = [
-    "Displine Core",
-    "Discipline Elective",
-    "Discipline-Linked",
+
     "Foundation Core-Basic Sc. & Maths",
     "Foundation Core- Basic Engineering Sc",
+    "Discipline-Linked",
+    "Discipline Elective",
+    "Discipline Core",
   ];
 
   const fetchData = async (index) => {
     try {
-      const response = await fetch(`http://localhost:3000/${buttons[index]}.json`);
+      const response = await fetch(`http://localhost:3000/Data/${buttons[index]}.json`);
       const jsonData = await response.json();
       setdata(jsonData);
     } catch (error) {
@@ -65,7 +66,13 @@ const Home = () => {
             {data.map((record, i) => (
               <tr key={i}>
                 {Object.values(record).map((value, j) => (
-                  <td key={j}>{value}</td>
+                  <td key={j}>
+                    {j===3 ? (
+                      <a href={value} target="_blank">Click Me</a>
+                    ):(
+                      value
+                    )}
+                  </td>
                 ))}
               </tr>
             ))}
