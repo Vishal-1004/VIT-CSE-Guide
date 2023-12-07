@@ -51,7 +51,7 @@ const Home = () => {
         {buttons.map((button, index) => (
           <li
             key={index}
-            className={`nav-item btn ${activelink === index ? "active" : ""}`}
+            className={`nav-item ${activelink === index ? "active" : ""}`}
           >
             <Link
               className={`nav-link ${
@@ -69,7 +69,7 @@ const Home = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <table className="table my-3 table-style">
+        <table className="table my-3 table-style container">
           <thead>
             <tr>
               {Object.keys(data[0] || {}).map((column, i) => (
