@@ -21,7 +21,7 @@ margin: 0 auto !important;
 
 .click-style{
     border: 1px solid #516beb !important;
-    color: #516beb;
+    color: #516beb !important;
 }
 
 .click-style:hover{

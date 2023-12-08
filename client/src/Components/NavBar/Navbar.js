@@ -265,8 +265,8 @@ const Navbar = () => {
             </ul>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li>
-                <Link className="btn btn-light" to="/contact">
-                  Contact Us
+                <Link className="btn btn-outline-light" to="/login">
+                  Login
                 </Link>
               </li>
             </ul>

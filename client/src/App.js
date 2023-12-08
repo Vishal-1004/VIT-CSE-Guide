@@ -7,8 +7,10 @@ import Home from "./Pages/Home/Home";
 
 // Bootstrap CSS --------------------------------------
 import "bootstrap/dist/css/bootstrap.min.css";
-// Bootstrap Bundle JS --------------------------------------
+// Bootstrap Bundle JS --------------------------------
 import "bootstrap/dist/js/bootstrap.bundle.min";
+// React Toastify -------------------------------------
+import 'react-toastify/dist/ReactToastify.css';
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Otp from "./Pages/OTP/Otp";
@@ -21,7 +23,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/otp" element={<Otp />} />
+        <Route path="/user/otp" element={<Otp />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
       <ScrollToTopBtn />

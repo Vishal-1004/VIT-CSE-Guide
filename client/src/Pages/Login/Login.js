@@ -1,8 +1,42 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { sentOtpFunction } from "../../Services/Apis";
+import Spinner from "react-bootstrap/Spinner";
 import "../Register/Register.css";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [spiner, setSpiner] = useState(false);
+
+  const navigate = useNavigate();
+
+  //const navigate = useNavigate();
+
+  const sendOtp = async (e) => {
+    e.preventDefault();
+
+    if (email === "") {
+      toast.error("Enter Your College Email !");
+    } else if (!email.includes("@vitstudent.ac.in")) {
+      toast.error("Enter Valid Email !");
+    } else {
+      setSpiner(true);
+      const data = {
+        email: email,
+      };
+      //console.log(data);
+      const response = await sentOtpFunction(data);
+
+      if (response.status === 200) {
+        setSpiner(false);
+        navigate("/user/otp", { state: email });
+      } else {
+        toast.error(response.response.data.error);
+      }
+    }
+  };
+
   return (
     <>
       <section>
@@ -24,15 +58,26 @@ const Login = () => {
                 type="email"
                 name="email"
                 id=""
-                placeholder="Enter Your Email Address"
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter Your College Email Address"
               />
             </div>
-            <button className="btn">Login</button>
+            <button className="btn" onClick={sendOtp}>
+              Login
+              {spiner ? (
+                <span>
+                  <Spinner animation="border" />
+                </span>
+              ) : (
+                ""
+              )}
+            </button>
             <p>
               Don't have an account? <NavLink to="/register">Sign up</NavLink>
             </p>
           </form>
         </div>
+        <ToastContainer />
       </section>
     </>
   );
