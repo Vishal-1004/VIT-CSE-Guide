@@ -5,6 +5,9 @@ const userTestimon = require("../models/userTestimon");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const SECRECT_KEY = "abcdefghijklmnop";
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+
 
 // email config
 const tarnsporter = nodemailer.createTransport({
@@ -75,7 +78,7 @@ exports.userOtpSend = async (req, res) => {
         const mailOptions = {
           from: process.env.EMAIL,
           to: email,
-          subject: "Sending Eamil For Otp Validation",
+          subject: "Sending Email For Otp Validation",
           text: `OTP:- ${OTP}`,
         };
 
