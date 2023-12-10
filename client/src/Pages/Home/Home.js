@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
+import Testimonial from "../../Components/Testimonial/Testimonial";
 
 const Home = () => {
   const [activelink, setactivelink] = useState(0);
@@ -100,6 +101,10 @@ const Home = () => {
           </tbody>
         </table>
       )}
+
+      <div className="my-3 py-3" style={{ backgroundColor: "#516beb" }}>
+        <Testimonial />
+      </div>
     </div>
   );
 };

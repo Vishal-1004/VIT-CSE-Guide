@@ -1,15 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
+import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { userData } from "../../Services/Apis";
 
 const Navbar = () => {
+  const [data, setData] = useState({});
+  const userToken = sessionStorage.getItem("userdbtoken");
+  const isLoggedIn = sessionStorage.getItem("loggedIn");
+
+  const handleLogoutClick = () => {
+    sessionStorage.clear();
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const getUserData = await userData({ token: userToken });
+        if (getUserData.status === 200) {
+          // Set the fetched user data to the component state
+          setData(getUserData.data.data);
+          console.log("User data is: ", data);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    // Check if the user is logged in before making the API call
+    if (isLoggedIn) {
+      fetchData();
+    }
+  }, [isLoggedIn, userToken]);
+
   return (
     <div>
       <nav
         className="navbar navbar-expand-lg navbar-dark"
         style={{ backgroundColor: "#516BEB" }}
       >
-        <div className="container-fluid">
+        <div className="container">
           <Link className="btn btn-outline-light logo" to="/">
             VIT-CSE-Guide
           </Link>
@@ -264,11 +295,96 @@ const Navbar = () => {
               </li>
             </ul>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li>
-                <Link className="btn btn-outline-light" to="/login">
-                  Login
-                </Link>
-              </li>
+              {isLoggedIn ? (
+                data.isAdmin ? (
+                  <li className="nav-item mx-5 dropdown">
+                    <a
+                      className="nav-link dropdown-toggle"
+                      href="/"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <CgProfile style={{ fontSize: "28px" }} />
+                    </a>
+                    <div
+                      className="dropdown-menu"
+                      aria-labelledby="navbarDropdown"
+                    >
+                      <ul>
+                        <li className="exception">
+                          <Link className="dropdown-item" to="/messages">
+                            Messages
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item" to="/">
+                            Uploaded File
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item" to="/">
+                            Users
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="dropdown-item logout-btn"
+                            onClick={handleLogoutClick}
+                          >
+                            Logout
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                ) : (
+                  <li className="nav-item mx-5 dropdown">
+                    <a
+                      className="nav-link dropdown-toggle"
+                      href="/"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <CgProfile style={{ fontSize: "28px" }} />
+                    </a>
+                    <div
+                      className="dropdown-menu"
+                      aria-labelledby="navbarDropdown"
+                    >
+                      <ul>
+                        <li className="exception">
+                          <Link className="dropdown-item" to="/contact">
+                            Contact Us
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item" to="/">
+                            Upload File
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="dropdown-item logout-btn"
+                            onClick={handleLogoutClick}
+                          >
+                            Logout
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                )
+              ) : (
+                <li>
+                  <Link className="btn btn-outline-light" to="/login">
+                    Login
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>

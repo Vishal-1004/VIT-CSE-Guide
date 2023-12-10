@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
-import { userVerify } from "../../Services/Apis";
+import { userData, userVerify } from "../../Services/Apis";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../Store/Slices/userSlice";
 
 const Otp = () => {
   const [otp, setOtp] = useState("");
 
   const location = useLocation();
+
+  const Dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -27,12 +31,23 @@ const Otp = () => {
 
       const response = await userVerify(data);
       if (response.status === 200) {
-        localStorage.setItem("userdbtoken", response.data.userToken);
-        localStorage.setItem("loggedIn", true);
-        toast.success(response.data.message);
-        setTimeout(() => {
-          navigate("/");
-        }, 5000);
+        sessionStorage.setItem("userdbtoken", response.data.userToken);
+        sessionStorage.setItem("loggedIn", true);
+
+        const getUserData = await userData({ token: response.data.userToken });
+        if (getUserData.status === 200) {
+          console.log(
+            "Dispatch function is called from Otp.js with user data as: ",
+            getUserData.data.data
+          );
+          Dispatch(loginUser(getUserData.data.data));
+
+          toast.success(response.data.message);
+          setTimeout(() => {
+            navigate("/");
+            window.location.reload();
+          }, 5000);
+        }
       } else {
         toast.error(response.response.data.error);
       }

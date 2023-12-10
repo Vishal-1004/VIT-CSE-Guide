@@ -1,0 +1,27 @@
+.btn-v{
+    width: 100px !important;
+    font-size: 14px !important;
+    padding: 8px 0 !important;
+}
+
+.btn-v-outline-success {
+    background-color: white !important;
+    color: green !important;
+    border: 1px solid green !important;
+}
+
+.btn-v-outline-danger{
+    background-color: white !important;
+    color: red !important;
+    border: 1px solid red !important;
+}
+
+.btn-v-outline-success:hover{
+    background-color: green !important;
+    color: white !important;
+}
+
+.btn-v-outline-danger:hover{
+    background-color: red !important;
+    color: white !important;
+}

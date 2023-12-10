@@ -18,7 +18,8 @@ const Login = () => {
 
     if (email === "") {
       toast.error("Enter Your College Email !");
-    } else if (!email.includes("@vitstudent.ac.in")) {
+    } else if (!email.includes("@")) {
+      // for testing purpose we are keeping it as "@" but later it should be "@vitstudent.ac.in"
       toast.error("Enter Valid Email !");
     } else {
       setSpiner(true);

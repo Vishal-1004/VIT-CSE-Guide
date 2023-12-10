@@ -4,18 +4,50 @@ import Navbar from "./Components/NavBar/Navbar";
 import ScrollToTopBtn from "./Components/ScrollToTop/ScrollToTop";
 import Contact from "./Pages/Contact/Contact";
 import Home from "./Pages/Home/Home";
+import { userData } from "./Services/Apis";
 
 // Bootstrap CSS --------------------------------------
-import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS --------------------------------
-import "bootstrap/dist/js/bootstrap.bundle.min";
+//import "bootstrap/dist/js/bootstrap.bundle.min";
 // React Toastify -------------------------------------
-import 'react-toastify/dist/ReactToastify.css';
+
+// mutli carousel style -------------------------
+import "react-multi-carousel/lib/styles.css";
+// ---------------------------------------------
+import "react-toastify/dist/ReactToastify.css";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Otp from "./Pages/OTP/Otp";
+import Messages from "./Pages/Messages/Messages";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [admin, setAdmin] = useState(false);
+  const isLoggedIn = sessionStorage.getItem("loggedIn");
+  const userToken = sessionStorage.getItem("userdbtoken");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const getUserData = await userData({ token: userToken });
+
+        // Set the fetched user data to the component state
+        if (getUserData.status === 200) {
+          setAdmin(getUserData.data.data.isAdmin);
+          console.log("User is admin : ", admin);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    // Check if the user is logged in before making the API call
+    if (isLoggedIn) {
+      fetchData();
+    }
+  }, [isLoggedIn, userToken]);
+
   return (
     <Router>
       <Navbar />
@@ -24,7 +56,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user/otp" element={<Otp />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={isLoggedIn ? <Contact /> : <Login />} />
+        <Route
+          path="/messages"
+          element={isLoggedIn ? admin ? <Messages /> : <Home /> : <Login />}
+        />
       </Routes>
       <ScrollToTopBtn />
     </Router>

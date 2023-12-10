@@ -1,11 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import { userData, sendMsg } from "../../Services/Apis";
 
 export default function ProfilePage() {
+  const [data, setData] = useState({});
+  const [getMessage, setMessage] = useState("");
+
+  const userToken = sessionStorage.getItem("userdbtoken");
+  const isLoggedIn = sessionStorage.getItem("loggedIn");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const getUserData = await userData({ token: userToken });
+
+        // Set the fetched user data to the component state
+        setData(getUserData.data.data);
+        console.log("User data is: ", data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    // Check if the user is logged in before making the API call
+    if (isLoggedIn) {
+      fetchData();
+    }
+  }, [isLoggedIn, userToken]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const sendingMsg = await sendMsg({
+      email: data.email,
+      message: getMessage,
+      fname: data.fname,
+    });
+    if (sendingMsg.data.message === "Email was send") {
+      toast.success("Message was sent");
+      setMessage("");
+    } else {
+      toast.warning(sendingMsg.data.message);
+      setMessage("");
+    }
+    //console.log(sendingMsg.data.message);
+  };
+
   return (
     <section>
       <ContactUsStyle>
         <div className="container py-4">
+          <ToastContainer />
           <div className="my-4">
             <h1 className="my-0 main-heading">Contact Us</h1>
             <hr style={{ border: "3px solid #516beb" }} />
@@ -28,15 +74,17 @@ export default function ProfilePage() {
               </p>
             </div>
             <div lg="7" className="col-12 col-md-6 d-flex align-items-center">
-              <form className="contact__form w-100">
+              <form className="contact__form w-100" onSubmit={handleSubmit}>
                 <div className="row">
                   <div lg="6" className="col form-group">
                     <input
                       className="form-control"
                       id="name"
                       name="name"
+                      value={data.fname}
                       placeholder="Name"
                       type="text"
+                      readOnly
                       required
                     />
                   </div>
@@ -45,8 +93,10 @@ export default function ProfilePage() {
                       className="form-control rounded-0"
                       id="email"
                       name="email"
+                      value={data.email}
                       placeholder="College Email"
                       type="email"
+                      readOnly
                       required
                     />
                   </div>
@@ -57,6 +107,8 @@ export default function ProfilePage() {
                   name="message"
                   placeholder="Message"
                   rows="5"
+                  value={getMessage}
+                  onChange={(e) => setMessage(e.target.value)}
                   required
                 ></textarea>
                 <br />
