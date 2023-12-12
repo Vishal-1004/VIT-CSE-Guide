@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import Testimonial from "../../Components/Testimonial/Testimonial";
+import Contactus from "../../Components/Contact/Contact";
 
 const Home = () => {
   const [activelink, setactivelink] = useState(0);
@@ -104,6 +105,10 @@ const Home = () => {
 
       <div className="my-3 py-3" style={{ backgroundColor: "#516beb" }}>
         <Testimonial />
+      </div>
+
+      <div className="my-3 py-3">
+        <Contactus />
       </div>
     </div>
   );
