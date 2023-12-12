@@ -1,0 +1,61 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto';
+
+body {
+  background: #fff;
+  text-align: center;
+  margin: 2%;
+  font-family: 'Roboto', sans-serif;
+  
+}
+.card {
+  width: 20%;
+  transition: 0.3s;
+  background-color: rgba(0,0,0,0.85);
+  position: relative;
+  display: inline-block;
+  margin: 1rem;
+}
+.card:hover {
+    box-shadow: 0 16px 36px 0 rgba(0,0,0,0.7);
+   transform: translate(0,-5px);
+}
+.container {
+  padding: 10px 20px;
+  text-align: left;
+  color: #fff;
+}
+.category {
+  text-decoration: none;
+  color: rgb(250, 178, 58);
+  font-weight: bold;
+  font-size: 0.85em;
+}
+.category:hover {
+  text-decoration: underline;
+}
+h2 {
+  margin: 0;
+  margin-top: 2px;
+}
+.author{
+  text-decoration: none;
+  color: rgb(90, 183, 243);
+}
+p {
+  margin-top: 7px;
+}
+.author:hover {
+  text-decoration: underline;
+}
+@media only screen and (max-width: 1024px){
+    .card {
+        width: 40%;
+    }
+}
+@media only screen   and (min-device-width: 320px) 
+  and (max-device-width: 550px) {
+    .card {
+        width: 98%;
+      margin: 1%;
+    }
+}
