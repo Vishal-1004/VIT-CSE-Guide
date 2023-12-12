@@ -1,0 +1,17 @@
+.input-group{
+    display: inline-block;
+    padding: 5px;
+    height: 2.45rem;
+    width: 9rem;
+}
+
+.text-decoration{
+    font-size: large;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .actions-style{
+        flex-direction: column;
+    }
+  }

@@ -319,12 +319,7 @@ const Navbar = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item" to="/">
-                            Uploaded File
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className="dropdown-item" to="/">
+                          <Link className="dropdown-item" to="/users">
                             Users
                           </Link>
                         </li>
@@ -359,11 +354,6 @@ const Navbar = () => {
                         <li className="exception">
                           <Link className="dropdown-item" to="/contact">
                             Contact Us
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className="dropdown-item" to="/">
-                            Upload File
                           </Link>
                         </li>
                         <li>

@@ -1,0 +1,10 @@
+.footer-section-style{
+    min-height: calc(100vh - 100vh) !important;
+}
+
+.footer-style{
+    background-color: #516beb;
+    color: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}

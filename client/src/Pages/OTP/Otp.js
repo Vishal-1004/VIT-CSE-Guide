@@ -4,8 +4,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { userData, userVerify } from "../../Services/Apis";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../Store/Slices/userSlice";
+import Spinner from "react-bootstrap/Spinner";
 
 const Otp = () => {
+  const [spiner, setSpiner] = useState(false);
   const [otp, setOtp] = useState("");
 
   const location = useLocation();
@@ -24,6 +26,7 @@ const Otp = () => {
     } else if (otp.length < 6) {
       toast.error("Otp Length minimum 6 digit");
     } else {
+      setSpiner(true);
       const data = {
         otp,
         email: location.state,
@@ -31,6 +34,7 @@ const Otp = () => {
 
       const response = await userVerify(data);
       if (response.status === 200) {
+        setSpiner(false);
         sessionStorage.setItem("userdbtoken", response.data.userToken);
         sessionStorage.setItem("loggedIn", true);
 
@@ -81,6 +85,13 @@ const Otp = () => {
             </div>
             <button className="btn" onClick={LoginUser}>
               Submit
+              {spiner ? (
+                <span>
+                  <Spinner animation="border" />
+                </span>
+              ) : (
+                ""
+              )}
             </button>
           </form>
         </div>

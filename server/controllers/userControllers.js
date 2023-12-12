@@ -149,7 +149,50 @@ exports.userLogin = async (req, res) => {
   }
 };
 
-// get user data
+// get all users
+exports.getPaginateUsers = async (req,res) => {
+  const search = req.body.search || ""
+  if(search.length === 0){
+    const allUsers = await users.find({})
+  
+    const {page, limit} = req.body
+  
+    const startIndex = (page - 1)*limit
+    const lastIndex = (page)*limit
+  
+    const result = {}
+  
+    result.totalUser = allUsers.length;
+    result.pageCount = Math.ceil(allUsers.length/limit)
+  
+    if(lastIndex < allUsers.length){
+      result.next = {
+        page: page + 1
+      }
+    }
+    if(startIndex > 0){
+      result.prev = {
+        page: page - 1
+      }
+    }
+  
+    result.result = allUsers.slice(startIndex,lastIndex)
+    res.status(200).json(result)
+  }
+  else{
+    const query = {
+      fname: {$regex:search,$options:"i"}
+    }
+    try {
+      const userData = await users.find(query);
+      res.status(201).json(userData)
+    } catch (error) {
+      res.status(400).json({ error: "Some Error Occured", error });
+    }
+  }
+}
+
+// get one user data
 exports.userData = async (req, res) => {
   const { token } = req.body;
   try {
@@ -173,6 +216,25 @@ exports.userData = async (req, res) => {
     res.status(200).json({ data: userData });
   } catch (error) {
     res.status(400).json({ error: "Some Error Occured", error });
+  }
+};
+
+// delete one user
+exports.deleteOneUser = async (req, res) => {
+  const { index } = req.body;
+
+  try {
+    const userData = await users.findByIdAndDelete(index);
+
+    if (!userData) {
+      // Handle case where user with the specified ID doesn't exist
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "User's Account Deleted Successfully", deletedUser: userData });
+  } catch (error) {
+    // Handle other errors
+    res.status(500).json({ error: "Some error occurred", details: error.message });
   }
 };
 
@@ -227,6 +289,7 @@ exports.getMessages = async (req, res) => {
   }
 };
 
+// delete message
 exports.deleteMessage = async (req, res) => {
   const { index } = req.body;
 
@@ -247,6 +310,7 @@ exports.deleteMessage = async (req, res) => {
   }
 };
 
+// upload testimonial
 exports.uploadTestimonial = async (req, res) => {
   const { fname, email, message } = req.body;
 
@@ -264,6 +328,7 @@ exports.uploadTestimonial = async (req, res) => {
   }
 };
 
+// get all testimonial
 exports.getTestimonials = async (req, res) => {
   const { request } = req.body;
   try {
@@ -279,6 +344,7 @@ exports.getTestimonials = async (req, res) => {
   }
 };
 
+// delete a testimonial
 exports.deleteTestimonial = async (req, res) => {
   const { index } = req.body;
 

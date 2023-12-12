@@ -21,6 +21,8 @@ import Register from "./Pages/Register/Register";
 import Otp from "./Pages/OTP/Otp";
 import Messages from "./Pages/Messages/Messages";
 import { useEffect, useState } from "react";
+import Users from "./Pages/Users/Users";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   const [admin, setAdmin] = useState(false);
@@ -61,7 +63,12 @@ function App() {
           path="/messages"
           element={isLoggedIn ? admin ? <Messages /> : <Home /> : <Login />}
         />
+        <Route
+          path="/users"
+          element={isLoggedIn ? admin ? <Users /> : <Home /> : <Login />}
+        />
       </Routes>
+      <Footer />
       <ScrollToTopBtn />
     </Router>
   );

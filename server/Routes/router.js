@@ -7,6 +7,8 @@ router.post("/user/register", controllers.userregister);
 router.post("/user/sendotp", controllers.userOtpSend);
 router.post("/user/login", controllers.userLogin);
 router.post("/user/data", controllers.userData);
+router.delete("/user/delete", controllers.deleteOneUser);
+router.post("/user/alluserdata", controllers.getPaginateUsers);
 router.post("/user/sendmsg", controllers.sendMessage);
 router.post("/user/allmsg", controllers.getMessages);
 router.delete("/user/deletemsg", controllers.deleteMessage);

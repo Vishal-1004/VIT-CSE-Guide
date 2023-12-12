@@ -52,3 +52,11 @@ export const uploadTestimonial = async (data) => {
     data
   );
 };
+
+export const getPaginateUsers = async (data) => {
+  return await commonrequest("POST", `${BACKEND_URL}/user/alluserdata`, data);
+};
+
+export const deleteOneUser = async (data) => {
+  return await commonrequest("DELETE", `${BACKEND_URL}/user/delete`, data);
+};
