@@ -1,3 +1,23 @@
+.main-heading{
+  margin-bottom: 2rem;
+}
+
+.h2-style{
+  display: inline-block !important;
+  font-size: 2rem !important;
+  font-weight: 400 !important;
+  border-bottom: 3px solid #516beb !important;
+}
+
+.carousel-control-icon-style{
+  color: #516beb !important;
+  font-size: 30px;
+}
+
+.carousel-indicators button{
+  background-color: #516beb !important;
+}
+
 .blog-card {
   display: flex;
   flex-direction: column;
@@ -17,7 +37,7 @@
 }
 
 .blog-card a:hover {
-  color: #5ad67d;
+  color: #516beb !important;
 }
 
 .blog-card:hover .photo {
@@ -127,7 +147,7 @@
 }
 
 .blog-card .description a {
-  color: #5ad67d;
+  color: #516beb !important;
   display: inline-block;
   position: relative;
 }
@@ -158,9 +178,9 @@
 .blog-card p:first-of-type:before {
   content: "";
   position: absolute;
-  height: 5px;
-  background: #5ad67d;
-  width: 35px;
+  height: 4px;
+  background: #516beb !important;
+  width: 15rem;
   top: -0.75rem;
   border-radius: 3px;
 }

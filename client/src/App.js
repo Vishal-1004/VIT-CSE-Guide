@@ -23,6 +23,7 @@ import Messages from "./Pages/Messages/Messages";
 import { useEffect, useState } from "react";
 import Users from "./Pages/Users/Users";
 import Footer from "./Components/Footer/Footer";
+import Studymaterials from "./Components/StudyMaterialCard/StudyMaterials";
 
 function App() {
   const [admin, setAdmin] = useState(false);
@@ -58,6 +59,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user/otp" element={<Otp />} />
+        <Route path="/studymaterial" element={<Studymaterials />} />
         <Route path="/contact" element={isLoggedIn ? <Contact /> : <Login />} />
         <Route
           path="/messages"

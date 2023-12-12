@@ -15,9 +15,9 @@
 }
 
 .contactimage{
-    width: 100%; 
+    width: 80%; 
     max-width: 100%;
-    height: auto;
+    height: 60% !important;
 }
 .contactdes{
     padding: 6rem;

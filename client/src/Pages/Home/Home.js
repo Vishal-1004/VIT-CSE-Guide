@@ -107,7 +107,7 @@ const Home = () => {
         <Testimonial />
       </div>
 
-      <div className="my-3 py-3">
+      <div className="py-3">
         <Contactus />
       </div>
     </div>
