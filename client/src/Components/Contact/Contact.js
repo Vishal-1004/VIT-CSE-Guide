@@ -26,7 +26,7 @@ const Contactus = () => {
           </p>
           <button type="submit" className="btn btn-primary btn-lg">
             <Link className="contactusbtn" to="/contact">
-              Send Message ✉
+              Send Message
             </Link>
           </button>
         </div>
