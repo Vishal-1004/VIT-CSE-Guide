@@ -2,12 +2,11 @@ const users = require("../models/userSchema");
 const userotp = require("../models/userOtp");
 const userMsg = require("../models/userMsg");
 const userTestimon = require("../models/userTestimon");
+const subject = require("../models/subject");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const SECRECT_KEY = "abcdefghijklmnop";
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
-
 
 // email config
 const tarnsporter = nodemailer.createTransport({
@@ -150,47 +149,46 @@ exports.userLogin = async (req, res) => {
 };
 
 // get all users
-exports.getPaginateUsers = async (req,res) => {
-  const search = req.body.search || ""
-  if(search.length === 0){
-    const allUsers = await users.find({})
-  
-    const {page, limit} = req.body
-  
-    const startIndex = (page - 1)*limit
-    const lastIndex = (page)*limit
-  
-    const result = {}
-  
+exports.getPaginateUsers = async (req, res) => {
+  const search = req.body.search || "";
+  if (search.length === 0) {
+    const allUsers = await users.find({});
+
+    const { page, limit } = req.body;
+
+    const startIndex = (page - 1) * limit;
+    const lastIndex = page * limit;
+
+    const result = {};
+
     result.totalUser = allUsers.length;
-    result.pageCount = Math.ceil(allUsers.length/limit)
-  
-    if(lastIndex < allUsers.length){
+    result.pageCount = Math.ceil(allUsers.length / limit);
+
+    if (lastIndex < allUsers.length) {
       result.next = {
-        page: page + 1
-      }
+        page: page + 1,
+      };
     }
-    if(startIndex > 0){
+    if (startIndex > 0) {
       result.prev = {
-        page: page - 1
-      }
+        page: page - 1,
+      };
     }
-  
-    result.result = allUsers.slice(startIndex,lastIndex)
-    res.status(200).json(result)
-  }
-  else{
+
+    result.result = allUsers.slice(startIndex, lastIndex);
+    res.status(200).json(result);
+  } else {
     const query = {
-      fname: {$regex:search,$options:"i"}
-    }
+      fname: { $regex: search, $options: "i" },
+    };
     try {
       const userData = await users.find(query);
-      res.status(201).json(userData)
+      res.status(201).json(userData);
     } catch (error) {
       res.status(400).json({ error: "Some Error Occured", error });
     }
   }
-}
+};
 
 // get one user data
 exports.userData = async (req, res) => {
@@ -231,10 +229,15 @@ exports.deleteOneUser = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({ message: "User's Account Deleted Successfully", deletedUser: userData });
+    res.status(200).json({
+      message: "User's Account Deleted Successfully",
+      deletedUser: userData,
+    });
   } catch (error) {
     // Handle other errors
-    res.status(500).json({ error: "Some error occurred", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Some error occurred", details: error.message });
   }
 };
 
@@ -366,31 +369,30 @@ exports.deleteTestimonial = async (req, res) => {
 };
 
 // add a new subject
-exports.Subject = async(req,res) => {
+exports.Subject = async (req, res) => {
   try {
-    const {domain, content} = req.body;
+    const { domain, content } = req.body;
 
     // Find or create a subject based on domain and courseTitle
-    let newsubject = await subject.findOne({
+    let Subject = await subject.findOne({
       domain,
     });
 
-    if (!newsubject) {
+    if (!Subject) {
       // If subject doesn't exist, create a new one
-      newsubject = new subject({
+      Subject = new subject({
         domain,
         content: [content],
       });
     } else {
       // If subject exists, update the content array with the new data
-      newsubject.content.push(content);
+      Subject.content.push(content);
     }
 
-    await newsubject.save();
+    await Subject.save();
 
-    res.status(201).json(newsubject);
-
-  }catch (error) {
-    res.status(400).json({error:error.message});
+    res.status(201).json(Subject);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
