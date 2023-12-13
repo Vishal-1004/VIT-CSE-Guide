@@ -364,3 +364,33 @@ exports.deleteTestimonial = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+// add a new subject
+exports.Subject = async(req,res) => {
+  try {
+    const {domain, content} = req.body;
+
+    // Find or create a subject based on domain and courseTitle
+    let newsubject = await subject.findOne({
+      domain,
+    });
+
+    if (!newsubject) {
+      // If subject doesn't exist, create a new one
+      newsubject = new subject({
+        domain,
+        content: [content],
+      });
+    } else {
+      // If subject exists, update the content array with the new data
+      newsubject.content.push(content);
+    }
+
+    await newsubject.save();
+
+    res.status(201).json(newsubject);
+
+  }catch (error) {
+    res.status(400).json({error:error.message});
+  }
+};

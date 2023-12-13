@@ -15,5 +15,6 @@ router.delete("/user/deletemsg", controllers.deleteMessage);
 router.delete("/user/deletetestimonial", controllers.deleteTestimonial);
 router.post("/user/uploadtestimonial", controllers.uploadTestimonial);
 router.post("/user/alltestimonial", controllers.getTestimonials);
+router.post("/user/subject",controllers.Subject);
 
 module.exports = router;
