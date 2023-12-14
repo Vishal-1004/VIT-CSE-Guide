@@ -16,5 +16,6 @@ router.delete("/user/deletetestimonial", controllers.deleteTestimonial);
 router.post("/user/uploadtestimonial", controllers.uploadTestimonial);
 router.post("/user/alltestimonial", controllers.getTestimonials);
 router.post("/user/subject",controllers.Subject);
+router.post('/user/subject/studymaterial', controllers.studyMaterial);
 
 module.exports = router;

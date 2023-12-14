@@ -396,3 +396,29 @@ exports.Subject = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+exports.studyMaterial = async(req,res) => {
+    try{
+      const {domain, content} = req.body;
+      // console.log('Domain:', domain);
+      // console.log('Course Title:', content.courseTitle);
+      // console.log(req.body);
+      const Subjectname = await subject.findOne({domain,'content.courseTitle':content.courseTitle});
+      // console.log('Found Subject:', Subjectname);
+      if(!Subjectname) {
+        return res.status(404).json({message:'Course Not found'});
+      }
+
+      const contentItemToUpdate = Subjectname.content.find(item => item.courseTitle === content.courseTitle);
+      if (!contentItemToUpdate) {
+        return res.status(404).json({ message: 'Content Item Not found for the specified courseTitle' });
+      }
+
+      contentItemToUpdate.studyMaterials.push(content.studyMaterials);
+      await Subjectname.save();
+
+      res.status(200).json({ message: "Study material added successfully", Subjectname });
+    }catch(error){
+      res.status(400).json({error:error.message});
+    }
+};
