@@ -422,3 +422,47 @@ exports.studyMaterial = async(req,res) => {
       res.status(400).json({error:error.message});
     }
 };
+
+exports.Paper = async(req,res) => {
+    try{
+      const {domain, content} = req.body;
+      const Subjectname = await subject.findOne({domain,'content.courseTitle':content.courseTitle});
+      if(!Subjectname) {
+        return res.status(404).json({message:'Course Not found'});
+      }
+
+      const contentItemToUpdate = Subjectname.content.find(item => item.courseTitle === content.courseTitle);
+      if (!contentItemToUpdate) {
+        return res.status(404).json({ message: 'Content Item Not found for the specified courseTitle' });
+      }
+
+      contentItemToUpdate.papers.push(content.papers);
+      await Subjectname.save();
+
+      res.status(200).json({ message: "Study material added successfully", Subjectname });
+    }catch(error){
+      res.status(400).json({error:error.message});
+    }
+};
+
+exports.RefVdos = async(req,res) => {
+    try{
+      const {domain, content} = req.body;
+      const Subjectname = await subject.findOne({domain,'content.courseTitle':content.courseTitle});
+      if(!Subjectname) {
+        return res.status(404).json({message:'Course Not found'});
+      }
+
+      const contentItemToUpdate = Subjectname.content.find(item => item.courseTitle === content.courseTitle);
+      if (!contentItemToUpdate) {
+        return res.status(404).json({ message: 'Content Item Not found for the specified courseTitle' });
+      }
+
+      contentItemToUpdate.referenceVideos.push(content.referenceVideos);
+      await Subjectname.save();
+
+      res.status(200).json({ message: "Study material added successfully", Subjectname });
+    }catch(error){
+      res.status(400).json({error:error.message});
+    }
+};
