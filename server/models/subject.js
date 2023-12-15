@@ -13,7 +13,6 @@ const subjectSchema = new mongoose.Schema({
       },
       credits: {
         type: Number,
-        required: true,
       },
       syllabus: {
         type: String,

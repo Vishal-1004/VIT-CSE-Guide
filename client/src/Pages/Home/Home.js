@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 import Testimonial from "../../Components/Testimonial/Testimonial";
 import Contactus from "../../Components/Contact/Contact";
+import Hero from "../../Components/Hero/Hero";
 //import Hero from "../../Components/Hero/Hero";
 
 const Home = () => {
@@ -40,7 +41,8 @@ const Home = () => {
   }, [activelink]);
   return (
     <>
-      <div className="my-5">
+      <Hero />
+      <div className="my-3">
         <div className="container">
           <h1 className="h1-style">Index</h1>
           <p className="p-style">

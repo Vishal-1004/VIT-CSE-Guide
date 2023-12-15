@@ -391,94 +391,133 @@ exports.Subject = async (req, res) => {
 
     await Subject.save();
 
-    res.status(201).json(Subject);
+    res.status(200).json(Subject);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-exports.studyMaterial = async(req,res) => {
-    try{
-      const {domain, content} = req.body;
-      // console.log('Domain:', domain);
-      // console.log('Course Title:', content.courseTitle);
-      // console.log(req.body);
-      const Subjectname = await subject.findOne({domain,'content.courseTitle':content.courseTitle});
-      // console.log('Found Subject:', Subjectname);
-      if(!Subjectname) {
-        return res.status(404).json({message:'Course Not found'});
-      }
-
-      const contentItemToUpdate = Subjectname.content.find(item => item.courseTitle === content.courseTitle);
-      if (!contentItemToUpdate) {
-        return res.status(404).json({ message: 'Content Item Not found for the specified courseTitle' });
-      }
-
-      contentItemToUpdate.studyMaterials.push(content.studyMaterials);
-      await Subjectname.save();
-
-      res.status(200).json({ message: "Study material added successfully", Subjectname });
-    }catch(error){
-      res.status(400).json({error:error.message});
+exports.studyMaterial = async (req, res) => {
+  try {
+    const { domain, content } = req.body;
+    // console.log('Domain:', domain);
+    // console.log('Course Title:', content.courseTitle);
+    // console.log(req.body);
+    const Subjectname = await subject.findOne({
+      domain,
+      "content.courseTitle": content.courseTitle,
+    });
+    // console.log('Found Subject:', Subjectname);
+    if (!Subjectname) {
+      return res.status(404).json({ message: "Course Not found" });
     }
+
+    const contentItemToUpdate = Subjectname.content.find(
+      (item) => item.courseTitle === content.courseTitle
+    );
+    if (!contentItemToUpdate) {
+      return res
+        .status(404)
+        .json({
+          message: "Content Item Not found for the specified courseTitle",
+        });
+    }
+
+    contentItemToUpdate.studyMaterials.push(content.studyMaterials);
+    await Subjectname.save();
+
+    res
+      .status(200)
+      .json({ message: "Study material added successfully", Subjectname });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
-exports.Paper = async(req,res) => {
-    try{
-      const {domain, content} = req.body;
-      const Subjectname = await subject.findOne({domain,'content.courseTitle':content.courseTitle});
-      if(!Subjectname) {
-        return res.status(404).json({message:'Course Not found'});
-      }
-
-      const contentItemToUpdate = Subjectname.content.find(item => item.courseTitle === content.courseTitle);
-      if (!contentItemToUpdate) {
-        return res.status(404).json({ message: 'Content Item Not found for the specified courseTitle' });
-      }
-
-      contentItemToUpdate.papers.push(content.papers);
-      await Subjectname.save();
-
-      res.status(200).json({ message: "Study material added successfully", Subjectname });
-    }catch(error){
-      res.status(400).json({error:error.message});
+exports.Paper = async (req, res) => {
+  try {
+    const { domain, content } = req.body;
+    const Subjectname = await subject.findOne({
+      domain,
+      "content.courseTitle": content.courseTitle,
+    });
+    if (!Subjectname) {
+      return res.status(404).json({ message: "Course Not found" });
     }
+
+    const contentItemToUpdate = Subjectname.content.find(
+      (item) => item.courseTitle === content.courseTitle
+    );
+    if (!contentItemToUpdate) {
+      return res
+        .status(404)
+        .json({
+          message: "Content Item Not found for the specified courseTitle",
+        });
+    }
+
+    contentItemToUpdate.papers.push(content.papers);
+    await Subjectname.save();
+
+    res
+      .status(200)
+      .json({ message: "Study material added successfully", Subjectname });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
-exports.RefVdos = async(req,res) => {
-    try{
-      const {domain, content} = req.body;
-      const Subjectname = await subject.findOne({domain,'content.courseTitle':content.courseTitle});
-      if(!Subjectname) {
-        return res.status(404).json({message:'Course Not found'});
-      }
-
-      const contentItemToUpdate = Subjectname.content.find(item => item.courseTitle === content.courseTitle);
-      if (!contentItemToUpdate) {
-        return res.status(404).json({ message: 'Content Item Not found for the specified courseTitle' });
-      }
-
-      contentItemToUpdate.referenceVideos.push(content.referenceVideos);
-      await Subjectname.save();
-
-      res.status(200).json({ message: "Study material added successfully", Subjectname });
-    }catch(error){
-      res.status(400).json({error:error.message});
+exports.RefVdos = async (req, res) => {
+  try {
+    const { domain, content } = req.body;
+    const Subjectname = await subject.findOne({
+      domain,
+      "content.courseTitle": content.courseTitle,
+    });
+    if (!Subjectname) {
+      return res.status(404).json({ message: "Course Not found" });
     }
+
+    const contentItemToUpdate = Subjectname.content.find(
+      (item) => item.courseTitle === content.courseTitle
+    );
+    if (!contentItemToUpdate) {
+      return res
+        .status(404)
+        .json({
+          message: "Content Item Not found for the specified courseTitle",
+        });
+    }
+
+    contentItemToUpdate.referenceVideos.push(content.referenceVideos);
+    await Subjectname.save();
+
+    res
+      .status(200)
+      .json({ message: "Study material added successfully", Subjectname });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 exports.deleteStudyMaterial = async (req, res) => {
   const { domain, courseTitle, materialId } = req.body;
   try {
-    const data = await subject.findOne({ domain, "content.courseTitle": courseTitle, "content.studyMaterials._id": materialId });
+    const data = await subject.findOne({
+      domain,
+      "content.courseTitle": courseTitle,
+      "content.studyMaterials._id": materialId,
+    });
     if (!data) {
       return res.status(404).json({ error: "Document not found" });
     }
-    const materialIndex = data.content[0].studyMaterials.findIndex(m => m._id.toString() === materialId);
+    const materialIndex = data.content[1].studyMaterials.findIndex(
+      (m) => m._id.toString() === materialId
+    );
     if (materialIndex === -1) {
       return res.status(404).json({ error: "Study material not found" });
     }
-    data.content[0].studyMaterials.splice(materialIndex, 1);
+    data.content[1].studyMaterials.splice(materialIndex, 1);
     await data.save();
     res.status(200).json({ message: "Deleted successfully" });
   } catch (error) {

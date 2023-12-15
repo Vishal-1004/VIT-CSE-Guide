@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import Users from "./Pages/Users/Users";
 import Footer from "./Components/Footer/Footer";
 import Studymaterials from "./Components/StudyMaterialCard/StudyMaterials";
+import AddSubject from "./Pages/Material/AddSubject";
 
 function App() {
   const [admin, setAdmin] = useState(false);
@@ -60,6 +61,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/user/otp" element={<Otp />} />
         <Route path="/studymaterial" element={<Studymaterials />} />
+        <Route
+          path="/addsubject"
+          element={isLoggedIn ? admin ? <AddSubject /> : <Home /> : <Login />}
+        />
         <Route path="/contact" element={isLoggedIn ? <Contact /> : <Login />} />
         <Route
           path="/messages"

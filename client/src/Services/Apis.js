@@ -60,3 +60,7 @@ export const getPaginateUsers = async (data) => {
 export const deleteOneUser = async (data) => {
   return await commonrequest("DELETE", `${BACKEND_URL}/user/delete`, data);
 };
+
+export const addSubject = async (data) => {
+  return await commonrequest("POST", `${BACKEND_URL}/user/subject`, data);
+};

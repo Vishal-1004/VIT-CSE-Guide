@@ -1,34 +1,69 @@
-import React from 'react'
-import './Hero.css'
-import TypedComponent from "./TypedComponent.js";
+import React from "react";
+import { TypeAnimation } from "react-type-animation";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    // Navigate to "/login"
+    navigate("/login");
+  };
+
   return (
-    <div>
-      <section className="section-hero">
-        <div className="hero">
-          <div className="hero-text-box">
-            <h1 className="heading-primary">
-              ONE STOP <br /> SOLUTION
-            </h1>
-            <p className="hero-description">
-              We have got you covered with&nbsp;
-              <br />
-              <span className="text-slider">
-                <TypedComponent />
-              </span>
-            </p>
-            <a href="/" className="btn btn--outline margin-rigth-btn">
-              Check Index &darr;
-            </a>
+    <HeroStyle>
+      <div className="container">
+        <div className="row justify-content-md-center align-items-center">
+          <div className="col col-lg-5 col-md-6 mx-3 my-2">
+            <h1>One Stop Solution for</h1>
+            <TypeAnimation
+              sequence={[
+                // Same substring at the start will only be typed once, initially
+                "Study Materials",
+                1000,
+                "Question Papers",
+                1000,
+                "Reference Vidoes",
+                1000,
+              ]}
+              speed={50}
+              style={{ fontSize: "2em" }}
+              repeat={Infinity}
+              className="auto-type"
+            />
+            <br />
+            <button
+              className="btn btn-outline-success my-3"
+              onClick={handleButtonClick}
+            >
+              Create Account
+            </button>
           </div>
-          <div className="hero-img-box">
-            <img src="/assets/Hero_img.png" alt="Image" className="hero-img" />
+          <div className="col col-md-6 my-2">
+            <img
+              style={{ width: "500px" }}
+              src="./assets/students.jpg"
+              alt="Hero"
+            />
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </HeroStyle>
   );
 };
 
-export default Hero
+const HeroStyle = styled.section`
+  min-height: 0;
+  .auto-type {
+    color: #516beb !important;
+  }
+
+  @media (max-width: 768px) {
+    img {
+      width: 300px !important;
+    }
+  }
+`;
+
+export default Hero;
