@@ -19,5 +19,8 @@ router.post("/user/subject",controllers.Subject);
 router.post('/user/subject/studymaterial', controllers.studyMaterial);
 router.post('/user/subject/paper',controllers.Paper);
 router.post('/user/subject/refvdo',controllers.RefVdos);
+router.delete('/user/subject/deletestudymat',controllers.deleteStudyMaterial);
+router.delete('/user/subject/deletepaper',controllers.deletePaper);
+router.delete('/user/subject/deleterefvdo',controllers.deleteRefVideo)
 
 module.exports = router;

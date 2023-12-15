@@ -466,3 +466,66 @@ exports.RefVdos = async(req,res) => {
       res.status(400).json({error:error.message});
     }
 };
+
+exports.deleteStudyMaterial = async (req, res) => {
+  const { domain, moduleNo } = req.body;
+  try {
+    const data = await subject.findOne({ domain });
+    if (!data) {
+      return res.status(404).json({ error: "Document not found" });
+    }
+    const studyMaterialIndex = data.content[0].studyMaterials.findIndex(m => m.moduleNo === moduleNo);
+    if (studyMaterialIndex === -1) {
+      return res.status(404).json({ error: "Study material not found" });
+    }
+    data.content[0].studyMaterials.splice(studyMaterialIndex, 1);
+    await data.save();
+    res.status(200).json({ message: "Deleted successfully" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
+exports.deletePaper = async (req, res) => {
+  const { domain, examType, year } = req.body;
+  try {
+    const data = await subject.findOne({ domain });
+    if (!data) {
+      return res.status(404).json({ error: "Document not found" });
+    }
+    const paperIndex = data.content[0].papers.findIndex(p => p.examType === examType && p.year === year);
+    if (paperIndex === -1) {
+      return res.status(404).json({ error: "Paper not found" });
+    }
+    data.content[0].papers.splice(paperIndex, 1);
+    await data.save();
+    res.status(200).json({ message: "Deleted successfully" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
+exports.deleteRefVideo = async (req, res) => {
+  const {domain, moduleNo, topic } = req.body;
+  try {
+    const data = await subject.findOne({domain});
+    if (!data) {
+      return res.status(404).json({ error: "Document not found" });
+    }
+    const module = data.content[0].referenceVideos.find(m => m.moduleNo === moduleNo);
+    if (!module) {
+      return res.status(404).json({ error: "Module not found" });
+    }
+    const videoIndex = module.videos.findIndex(v => v.topic === topic);
+    if (videoIndex === -1) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+    module.videos.splice(videoIndex, 1);
+    await data.save();
+    res.status(200).json({ message: "Deleted successfully" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
