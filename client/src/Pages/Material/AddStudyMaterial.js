@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import { addSubject } from "../../Services/Apis";
 import "./AddSubject.css";
+import { ToastContainer, toast } from "react-toastify";
+import { addStudyMaterial } from "../../Services/Apis";
 
-const AddSubject = () => {
+const AddStudyMaterial = () => {
   const [data, setData] = useState({
     domain: "",
     courseTitle: "",
-    credits: "",
-    syllabus: "",
+    moduleNo: "",
+    moduleName: "",
+    moduleContent: "",
+    materialLink: "",
   });
 
   const handleChange = (e) => {
@@ -18,32 +20,49 @@ const AddSubject = () => {
 
   const formSubmit = async (e) => {
     e.preventDefault();
-    if (!data.domain || !data.courseTitle || !data.credits) {
-      toast.error("Enter All The Input Fields");
+
+    if (
+      !data.domain ||
+      !data.courseTitle ||
+      !data.moduleNo ||
+      !data.moduleName ||
+      !data.moduleContent ||
+      !data.materialLink
+    ) {
+      toast.error("Enter All Input Fields");
     }
+
     const toSendData = {
       domain: data.domain,
-      content: {
-        courseTitle: data.courseTitle,
-        credits: data.credits,
-        syllabus: data.syllabus,
+      courseTitle: data.courseTitle,
+      studyMaterials: {
+        moduleNo: data.moduleNo,
+        moduleName: data.moduleName,
+        moduleContent: data.moduleContent,
+        materialLink: data.materialLink,
       },
     };
 
-    const response = await addSubject(toSendData);
+    const response = await addStudyMaterial(toSendData);
     if (response.status === 200) {
-      toast.success("Subject Added Successfully");
+      toast.success(response.data.message);
     } else {
-      toast.error("Some Error Occured");
+      toast.error("Some error occured");
       console.log(response.data.error);
     }
-    //console.log(toSendData);
-    setData({ domain: "", courseTitle: "", credits: "", syllabus: "" });
+    setData({
+      domain: "",
+      courseTitle: "",
+      moduleContent: "",
+      moduleName: "",
+      moduleNo: "",
+      materialLink: "",
+    });
   };
 
   return (
     <div className="container">
-      <h1 className="text-center my-3">Add Subject</h1>
+      <h1 className="text-center my-3">Add Study Material</h1>
       <div className="d-flex justify-content-center align-items-center my-5">
         <form>
           <div class="row mb-3">
@@ -75,9 +94,9 @@ const AddSubject = () => {
               <input
                 type="number"
                 className="form-control"
-                placeholder="Enter Credits"
-                name="credits"
-                value={data.credits}
+                placeholder="Module Number"
+                name="moduleNo"
+                value={data.moduleNo}
                 onChange={handleChange}
                 required
               />
@@ -86,9 +105,36 @@ const AddSubject = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Syllabus Link"
-                name="syllabus"
-                value={data.syllabus}
+                placeholder="Module Name"
+                name="moduleName"
+                value={data.moduleName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="row mb-3">
+            <div className="col">
+              <textarea
+                className="form-control rounded-0"
+                id="message"
+                name="moduleContent"
+                placeholder="Module Content"
+                value={data.moduleContent}
+                onChange={handleChange}
+                rows="3"
+                required
+              />
+            </div>
+          </div>
+          <div className="row mb-3">
+            <div className="col">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Module Link"
+                name="materialLink"
+                value={data.materialLink}
                 onChange={handleChange}
                 required
               />
@@ -112,4 +158,4 @@ const AddSubject = () => {
   );
 };
 
-export default AddSubject;
+export default AddStudyMaterial;

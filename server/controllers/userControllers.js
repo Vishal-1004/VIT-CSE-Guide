@@ -399,31 +399,26 @@ exports.Subject = async (req, res) => {
 
 exports.studyMaterial = async (req, res) => {
   try {
-    const { domain, content } = req.body;
-    // console.log('Domain:', domain);
-    // console.log('Course Title:', content.courseTitle);
-    // console.log(req.body);
+    const { domain, courseTitle, studyMaterials } = req.body;
+
     const Subjectname = await subject.findOne({
       domain,
-      "content.courseTitle": content.courseTitle,
     });
     // console.log('Found Subject:', Subjectname);
     if (!Subjectname) {
-      return res.status(404).json({ message: "Course Not found" });
+      return res.status(404).json({ message: "Domain Not found" });
     }
 
     const contentItemToUpdate = Subjectname.content.find(
-      (item) => item.courseTitle === content.courseTitle
+      (item) => item.courseTitle === courseTitle
     );
     if (!contentItemToUpdate) {
-      return res
-        .status(404)
-        .json({
-          message: "Content Item Not found for the specified courseTitle",
-        });
+      return res.status(404).json({
+        message: "CourseTitle not found under specific domain",
+      });
     }
 
-    contentItemToUpdate.studyMaterials.push(content.studyMaterials);
+    contentItemToUpdate.studyMaterials.push(studyMaterials);
     await Subjectname.save();
 
     res
@@ -449,11 +444,9 @@ exports.Paper = async (req, res) => {
       (item) => item.courseTitle === content.courseTitle
     );
     if (!contentItemToUpdate) {
-      return res
-        .status(404)
-        .json({
-          message: "Content Item Not found for the specified courseTitle",
-        });
+      return res.status(404).json({
+        message: "Content Item Not found for the specified courseTitle",
+      });
     }
 
     contentItemToUpdate.papers.push(content.papers);
@@ -482,11 +475,9 @@ exports.RefVdos = async (req, res) => {
       (item) => item.courseTitle === content.courseTitle
     );
     if (!contentItemToUpdate) {
-      return res
-        .status(404)
-        .json({
-          message: "Content Item Not found for the specified courseTitle",
-        });
+      return res.status(404).json({
+        message: "Content Item Not found for the specified courseTitle",
+      });
     }
 
     contentItemToUpdate.referenceVideos.push(content.referenceVideos);
@@ -511,7 +502,9 @@ exports.deleteStudyMaterial = async (req, res) => {
     if (!data) {
       return res.status(404).json({ error: "Document not found" });
     }
-    const contentIndex = data.content.findIndex((item) => item.courseTitle === courseTitle);
+    const contentIndex = data.content.findIndex(
+      (item) => item.courseTitle === courseTitle
+    );
     const materialIndex = data.content[contentIndex].studyMaterials.findIndex(
       (m) => m._id.toString() === materialId
     );
@@ -526,17 +519,23 @@ exports.deleteStudyMaterial = async (req, res) => {
   }
 };
 
-
-
 exports.deletePaper = async (req, res) => {
   const { domain, courseTitle, paperId } = req.body;
   try {
-    const data = await subject.findOne({ domain, "content.courseTitle": courseTitle, "content.papers._id": paperId });
+    const data = await subject.findOne({
+      domain,
+      "content.courseTitle": courseTitle,
+      "content.papers._id": paperId,
+    });
     if (!data) {
       return res.status(404).json({ error: "Document not found" });
     }
-    const contentIndex = data.content.findIndex((item) => item.courseTitle === courseTitle);
-    const paperIndex = data.content[contentIndex].papers.findIndex(p => p._id.toString() === paperId);
+    const contentIndex = data.content.findIndex(
+      (item) => item.courseTitle === courseTitle
+    );
+    const paperIndex = data.content[contentIndex].papers.findIndex(
+      (p) => p._id.toString() === paperId
+    );
     if (paperIndex === -1) {
       return res.status(404).json({ error: "Paper not found" });
     }
@@ -547,7 +546,6 @@ exports.deletePaper = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
 
 exports.deleteRefVideo = async (req, res) => {
   const { domain, courseTitle, videoId } = req.body;

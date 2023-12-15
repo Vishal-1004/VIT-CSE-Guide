@@ -64,3 +64,11 @@ export const deleteOneUser = async (data) => {
 export const addSubject = async (data) => {
   return await commonrequest("POST", `${BACKEND_URL}/user/subject`, data);
 };
+
+export const addStudyMaterial = async (data) => {
+  return await commonrequest(
+    "POST",
+    `${BACKEND_URL}/user/subject/studymaterial`,
+    data
+  );
+};
