@@ -468,17 +468,17 @@ exports.RefVdos = async(req,res) => {
 };
 
 exports.deleteStudyMaterial = async (req, res) => {
-  const { domain, moduleNo } = req.body;
+  const { domain, courseTitle, materialId } = req.body;
   try {
-    const data = await subject.findOne({ domain });
+    const data = await subject.findOne({ domain, "content.courseTitle": courseTitle, "content.studyMaterials._id": materialId });
     if (!data) {
       return res.status(404).json({ error: "Document not found" });
     }
-    const studyMaterialIndex = data.content[0].studyMaterials.findIndex(m => m.moduleNo === moduleNo);
-    if (studyMaterialIndex === -1) {
+    const materialIndex = data.content[0].studyMaterials.findIndex(m => m._id.toString() === materialId);
+    if (materialIndex === -1) {
       return res.status(404).json({ error: "Study material not found" });
     }
-    data.content[0].studyMaterials.splice(studyMaterialIndex, 1);
+    data.content[0].studyMaterials.splice(materialIndex, 1);
     await data.save();
     res.status(200).json({ message: "Deleted successfully" });
   } catch (error) {
@@ -487,14 +487,15 @@ exports.deleteStudyMaterial = async (req, res) => {
 };
 
 
+
 exports.deletePaper = async (req, res) => {
-  const { domain, examType, year } = req.body;
+  const { domain, courseTitle, paperId } = req.body;
   try {
-    const data = await subject.findOne({ domain });
+    const data = await subject.findOne({ domain, "content.courseTitle": courseTitle, "content.papers._id": paperId });
     if (!data) {
       return res.status(404).json({ error: "Document not found" });
     }
-    const paperIndex = data.content[0].papers.findIndex(p => p.examType === examType && p.year === year);
+    const paperIndex = data.content[0].papers.findIndex(p => p._id.toString() === paperId);
     if (paperIndex === -1) {
       return res.status(404).json({ error: "Paper not found" });
     }
@@ -508,20 +509,19 @@ exports.deletePaper = async (req, res) => {
 
 
 exports.deleteRefVideo = async (req, res) => {
-  const {domain, moduleNo, topic } = req.body;
+  const { domain, courseTitle, videoId } = req.body;
   try {
-    const data = await subject.findOne({domain});
+    const data = await subject.findOne({ domain, "content.courseTitle": courseTitle, "content.referenceVideos.videos._id": videoId });
     if (!data) {
       return res.status(404).json({ error: "Document not found" });
     }
-    const module = data.content[0].referenceVideos.find(m => m.moduleNo === moduleNo);
+    const module = data.content[0].referenceVideos.find(m =>
+      m.videos.some(v => v._id.toString() === videoId)
+    );
     if (!module) {
       return res.status(404).json({ error: "Module not found" });
     }
-    const videoIndex = module.videos.findIndex(v => v.topic === topic);
-    if (videoIndex === -1) {
-      return res.status(404).json({ error: "Video not found" });
-    }
+    const videoIndex = module.videos.findIndex(v => v._id.toString() === videoId);
     module.videos.splice(videoIndex, 1);
     await data.save();
     res.status(200).json({ message: "Deleted successfully" });
