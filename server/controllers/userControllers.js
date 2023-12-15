@@ -511,13 +511,14 @@ exports.deleteStudyMaterial = async (req, res) => {
     if (!data) {
       return res.status(404).json({ error: "Document not found" });
     }
-    const materialIndex = data.content[1].studyMaterials.findIndex(
+    const contentIndex = data.content.findIndex((item) => item.courseTitle === courseTitle);
+    const materialIndex = data.content[contentIndex].studyMaterials.findIndex(
       (m) => m._id.toString() === materialId
     );
     if (materialIndex === -1) {
       return res.status(404).json({ error: "Study material not found" });
     }
-    data.content[1].studyMaterials.splice(materialIndex, 1);
+    data.content[contentIndex].studyMaterials.splice(materialIndex, 1);
     await data.save();
     res.status(200).json({ message: "Deleted successfully" });
   } catch (error) {
@@ -534,11 +535,12 @@ exports.deletePaper = async (req, res) => {
     if (!data) {
       return res.status(404).json({ error: "Document not found" });
     }
-    const paperIndex = data.content[0].papers.findIndex(p => p._id.toString() === paperId);
+    const contentIndex = data.content.findIndex((item) => item.courseTitle === courseTitle);
+    const paperIndex = data.content[contentIndex].papers.findIndex(p => p._id.toString() === paperId);
     if (paperIndex === -1) {
       return res.status(404).json({ error: "Paper not found" });
     }
-    data.content[0].papers.splice(paperIndex, 1);
+    data.content[contentIndex].papers.splice(paperIndex, 1);
     await data.save();
     res.status(200).json({ message: "Deleted successfully" });
   } catch (error) {
@@ -554,7 +556,8 @@ exports.deleteRefVideo = async (req, res) => {
     if (!data) {
       return res.status(404).json({ error: "Document not found" });
     }
-    const module = data.content[0].referenceVideos.find(m =>
+    const contentIndex = data.content.findIndex((item) => item.courseTitle === courseTitle);
+    const module = data.content[contentIndex].referenceVideos.find(m =>
       m.videos.some(v => v._id.toString() === videoId)
     );
     if (!module) {
