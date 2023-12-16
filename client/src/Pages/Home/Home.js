@@ -1,44 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getAllSubject } from "../../Services/Apis";
 import "./Home.css";
 import Testimonial from "../../Components/Testimonial/Testimonial";
 import Contactus from "../../Components/Contact/Contact";
 import Hero from "../../Components/Hero/Hero";
+import Spinner from "react-bootstrap/Spinner";
 //import Hero from "../../Components/Hero/Hero";
 
 const Home = () => {
+  const [spiner, setSpiner] = useState(false);
   const [activelink, setactivelink] = useState(0);
-  const [data, setdata] = useState([]);
-  const [loading, setloading] = useState(true);
-  const handleclick = (index) => {
-    setactivelink(index);
+  const [activeDomain, setActiveDomain] = useState("FCBSAM");
+  const [data, setData] = useState([]);
+
+  const buttons = {
+    "Foundation Core-Basic Sc. & Maths": "FCBSAM",
+    "Foundation Core- Basic Engineering Sc": "FCBES",
+    "Discipline-Linked": "DL",
+    "Discipline Elective": "DE",
+    "Discipline Core": "DC",
   };
 
-  const buttons = [
-    "Foundation Core-Basic Sc. & Maths",
-    "Foundation Core- Basic Engineering Sc",
-    "Discipline-Linked",
-    "Discipline Elective",
-    "Discipline Core",
-  ];
-
-  const fetchData = async (index) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/Data/${buttons[index]}.json`
-      );
-      const jsonData = await response.json();
-      setdata(jsonData);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setloading(false);
-    }
+  const handleLinkClick = (index) => {
+    setactivelink(index);
+    //console.log(buttons[Object.keys(buttons)[index]]);
+    setActiveDomain(buttons[Object.keys(buttons)[index]]);
   };
 
   useEffect(() => {
-    fetchData(activelink);
-  }, [activelink]);
+    const fetchData = async () => {
+      setSpiner(true);
+      const response = await getAllSubject({ domain: activeDomain });
+      if (response.status === 200) {
+        setSpiner(false);
+        //console.log(response.data);
+        setData(response.data.content);
+        //console.log("Data is: ", data);
+      } else {
+        console.log(response.data);
+      }
+    };
+    fetchData();
+  }, [activeDomain]);
+
   return (
     <>
       <Hero />
@@ -54,7 +59,7 @@ const Home = () => {
           </p>
         </div>
         <ul className="nav nav-pills justify-content-center">
-          {buttons.map((button, index) => (
+          {Object.keys(buttons).map((button, index) => (
             <li
               key={index}
               className={`nav-item ${activelink === index ? "active" : ""}`}
@@ -64,7 +69,7 @@ const Home = () => {
                   activelink === index ? "active btn-style" : ""
                 }`}
                 to="/"
-                onClick={() => handleclick(index)}
+                onClick={() => handleLinkClick(index)}
               >
                 {button}
               </Link>
@@ -72,35 +77,35 @@ const Home = () => {
           ))}
         </ul>
 
-        {loading ? (
-          <p>Loading...</p>
+        {spiner ? (
+          <div className="text-center my-5" style={{ color: "black" }}>
+            Loading <Spinner animation="border" />
+          </div>
         ) : (
           <table className="table my-3 table-style container">
             <thead>
               <tr>
-                {Object.keys(data[0] || {}).map((column, i) => (
-                  <th key={i}>{column}</th>
-                ))}
+                <th>S no.</th>
+                <th>Course Title</th>
+                <th>Credits</th>
+                <th>Syllabus</th>
               </tr>
             </thead>
             <tbody>
-              {data.map((record, i) => (
+              {data?.map((record, i) => (
                 <tr key={i}>
-                  {Object.values(record).map((value, j) => (
-                    <td key={j}>
-                      {j === 3 ? (
-                        <Link
-                          to={value}
-                          className="btn click-style py-1 px-2"
-                          target="_blank"
-                        >
-                          Click
-                        </Link>
-                      ) : (
-                        value
-                      )}
-                    </td>
-                  ))}
+                  <td>{i + 1}</td>
+                  <td>{record.courseTitle}</td>
+                  <td>{record.credits}</td>
+                  <td>
+                    <Link
+                      to={record.syllabus}
+                      className="btn click-style py-1 px-2"
+                      target="_blank"
+                    >
+                      Click
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>

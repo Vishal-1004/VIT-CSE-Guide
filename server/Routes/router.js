@@ -15,6 +15,7 @@ router.delete("/user/deletemsg", controllers.deleteMessage);
 router.delete("/user/deletetestimonial", controllers.deleteTestimonial);
 router.post("/user/uploadtestimonial", controllers.uploadTestimonial);
 router.post("/user/alltestimonial", controllers.getTestimonials);
+router.post("/user/allsubject", controllers.getAllSubject);
 router.post("/user/subject",controllers.Subject);
 router.post('/user/subject/studymaterial', controllers.studyMaterial);
 router.post('/user/subject/paper',controllers.Paper);

@@ -65,6 +65,10 @@ export const addSubject = async (data) => {
   return await commonrequest("POST", `${BACKEND_URL}/user/subject`, data);
 };
 
+export const getAllSubject = async (data) => {
+  return await commonrequest("POST", `${BACKEND_URL}/user/allsubject`, data);
+};
+
 export const addStudyMaterial = async (data) => {
   return await commonrequest(
     "POST",

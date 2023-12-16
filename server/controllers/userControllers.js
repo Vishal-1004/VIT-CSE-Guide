@@ -368,6 +368,22 @@ exports.deleteTestimonial = async (req, res) => {
   }
 };
 
+// get all subject
+exports.getAllSubject = async (req,res) => {
+  try {
+    const {domain} = req.body;
+
+    let domainData = await subject.findOne({domain})
+    if(!domainData){
+      res.status(400).json({message: "No such domain exist"})
+    }else{
+      res.status(200).json({message: "Domain exist",content: domainData.content})
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 // add a new subject
 exports.Subject = async (req, res) => {
   try {

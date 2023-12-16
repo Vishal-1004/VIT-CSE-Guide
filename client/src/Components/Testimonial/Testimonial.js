@@ -21,6 +21,7 @@ const Testimonial = () => {
         setSpiner(false);
         console.log("All user Testimonials: ", alltestimonial.data.dataArray);
         setTestimonialData(alltestimonial.data.dataArray);
+        //console.log("Testimonial is: ", alltestimonial);
       }
     };
 
