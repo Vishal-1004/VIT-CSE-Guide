@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { getAllSubject } from "../../Services/Apis";
 import "./Navbar.css";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
@@ -6,6 +7,11 @@ import { userData } from "../../Services/Apis";
 
 const Navbar = () => {
   const [data, setData] = useState({});
+  const [dataFCBSAM, setDataFCBSAM] = useState([]);
+  const [dataFCBES, setDataFCBES] = useState([]);
+  const [dataDL, setDataDL] = useState([]);
+  const [dataDC, setDataDC] = useState([]);
+  const [dataDE, setDataDE] = useState([]);
   const userToken = sessionStorage.getItem("userdbtoken");
   const isLoggedIn = sessionStorage.getItem("loggedIn");
 
@@ -33,6 +39,32 @@ const Navbar = () => {
       fetchData();
     }
   }, [isLoggedIn, userToken]);
+
+  useEffect(() => {
+    const fetchData = async (domain) => {
+      const response = await getAllSubject({ domain });
+      if (response.status === 200) {
+        if (domain === "FCBSAM") {
+          setDataFCBSAM(response.data.content);
+        } else if (domain === "FCBES") {
+          setDataFCBES(response.data.content);
+        } else if (domain === "DL") {
+          setDataDL(response.data.content);
+        } else if (domain === "DC") {
+          setDataDC(response.data.content);
+        } else {
+          setDataDE(response.data.content);
+        }
+      } else {
+        console.log(response.data);
+      }
+    };
+    fetchData("FCBSAM");
+    fetchData("FCBES");
+    fetchData("DL");
+    fetchData("DE");
+    fetchData("DC");
+  }, []);
 
   return (
     <div>
@@ -75,36 +107,13 @@ const Navbar = () => {
                         Basic Science & Maths
                       </Link>
                     </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Engineering Chemistry
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Calculus
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Differential Equa. & Transforms
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Complex Variables & Linear Alg.
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Probability & Statistics
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Engineering Physics
-                      </a>
-                    </li>
+                    {dataFCBSAM?.map((record, i) => (
+                      <li key={i}>
+                        <a className="dropdown-item" href="/">
+                          {record.courseTitle}
+                        </a>
+                      </li>
+                    ))}
                   </ul>
                   <ul>
                     <li>
@@ -112,31 +121,13 @@ const Navbar = () => {
                         Basic Engineering Sci.
                       </Link>
                     </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Computer Programming: Python
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Structured & Object-Oriented Programming
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Computer Programming: Java
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Basic Electronics
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Basic Electrical Engineering
-                      </a>
-                    </li>
+                    {dataFCBES?.map((record, i) => (
+                      <li key={i}>
+                        <a className="dropdown-item" href="/">
+                          {record.courseTitle}
+                        </a>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </li>
@@ -158,21 +149,13 @@ const Navbar = () => {
                         Engineering Science
                       </Link>
                     </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Digital Systems Design
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Microprocessors and Microcontrollers
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Discrete Mathematics and Graph Theory
-                      </a>
-                    </li>
+                    {dataDL?.map((record, i) => (
+                      <li key={i}>
+                        <a className="dropdown-item" href="/">
+                          {record.courseTitle}
+                        </a>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </li>
@@ -194,21 +177,13 @@ const Navbar = () => {
                         Discipline Elective
                       </Link>
                     </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Machine Learning
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Internet and Web Programming
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Digital Image Processing
-                      </a>
-                    </li>
+                    {dataDE?.map((record, i) => (
+                      <li key={i}>
+                        <a className="dropdown-item" href="/">
+                          {record.courseTitle}
+                        </a>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </li>
@@ -230,66 +205,13 @@ const Navbar = () => {
                         Discipline Core
                       </Link>
                     </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Data Structures and Algorithms
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Design and Analysis of Algorithms
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Computer Architecture and Organization
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Software Engineering
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Database Systems
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Operating Systems
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Theory of Computation
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Embedded Systems
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Artificial Intelligence
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Compiler Design
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Computer Networks
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
-                        Cryptography and Network Security
-                      </a>
-                    </li>
+                    {dataDC?.map((record, i) => (
+                      <li key={i}>
+                        <a className="dropdown-item" href="/">
+                          {record.courseTitle}
+                        </a>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </li>
