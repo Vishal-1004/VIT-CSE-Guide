@@ -76,3 +76,15 @@ export const addStudyMaterial = async (data) => {
     data
   );
 };
+
+export const addPaper = async (data) =>{
+  return await commonrequest (
+    "POST", `${BACKEND_URL}/user/subject/paper`, data
+  )
+}
+
+export const addRefvdo = async (data) =>{
+  return await commonrequest (
+    "POST", `${BACKEND_URL}/user/subject/refvdo`, data
+  )
+}

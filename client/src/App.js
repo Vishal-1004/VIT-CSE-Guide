@@ -26,6 +26,8 @@ import Footer from "./Components/Footer/Footer";
 import Studymaterials from "./Components/StudyMaterialCard/StudyMaterials";
 import AddSubject from "./Pages/Material/AddSubject";
 import AddStudyMaterial from "./Pages/Material/AddStudyMaterial";
+import AddPaper from "./Pages/Material/AddPaper";
+import AddRefVdo from "./Pages/Material/AddRefVdo";
 
 function App() {
   const [admin, setAdmin] = useState(false);
@@ -66,6 +68,18 @@ function App() {
           path="/addstudymaterial"
           element={
             isLoggedIn ? admin ? <AddStudyMaterial /> : <Home /> : <Login />
+          }
+        />
+        <Route
+          path="/addpaper"
+          element={
+            isLoggedIn ? admin ? <AddPaper /> : <Home /> : <Login />
+          }
+        />
+        <Route
+          path="/addrefvdo"
+          element={
+            isLoggedIn ? admin ? <AddRefVdo /> : <Home /> : <Login />
           }
         />
         <Route

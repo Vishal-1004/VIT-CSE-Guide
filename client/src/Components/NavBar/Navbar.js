@@ -260,6 +260,22 @@ const Navbar = () => {
                         </li>
                         <li>
                           <Link
+                            className="dropdown-item"
+                            to="/addpaper"
+                          >
+                            Add Paper
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            to="/addrefvdo"
+                          >
+                            Add Ref Vdo
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
                             className="dropdown-item logout-btn"
                             onClick={handleLogoutClick}
                           >
