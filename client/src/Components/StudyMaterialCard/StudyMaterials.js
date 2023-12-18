@@ -1,6 +1,7 @@
 import React from "react";
 import { GrPrevious } from "react-icons/gr";
 import { GrNext } from "react-icons/gr";
+import { useLocation } from "react-router-dom";
 import "./Studymaterials.css";
 import QuestionPapers from "../PaperCard/QuestionPapers";
 import ReferenceVideos from "../ReferenceVideos/ReferenceVideos";
@@ -56,9 +57,12 @@ const BlogCard = ({
 };
 
 const Studymaterials = () => {
+  const location = useLocation();
+  const courseData = location.state?.courseData || null;
+  const domain = location.state?.domain || null;
   return (
     <>
-      <h1 className="text-center my-3">Subject Name</h1>
+      <h1 className="text-center my-3">{courseData.courseTitle}</h1>
       <div className="container my-3">
         <h2 className="h2-style main-heading">Study Materials</h2>
         <div

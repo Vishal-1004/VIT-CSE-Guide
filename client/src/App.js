@@ -63,7 +63,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user/otp" element={<Otp />} />
-        <Route path="/studymaterial" element={<Studymaterials />} />
+        <Route
+          path="/studymaterial"
+          element={isLoggedIn ? <Studymaterials /> : <Login />}
+        />
         <Route
           path="/addstudymaterial"
           element={
@@ -72,15 +75,11 @@ function App() {
         />
         <Route
           path="/addpaper"
-          element={
-            isLoggedIn ? admin ? <AddPaper /> : <Home /> : <Login />
-          }
+          element={isLoggedIn ? admin ? <AddPaper /> : <Home /> : <Login />}
         />
         <Route
           path="/addrefvdo"
-          element={
-            isLoggedIn ? admin ? <AddRefVdo /> : <Home /> : <Login />
-          }
+          element={isLoggedIn ? admin ? <AddRefVdo /> : <Home /> : <Login />}
         />
         <Route
           path="/addsubject"

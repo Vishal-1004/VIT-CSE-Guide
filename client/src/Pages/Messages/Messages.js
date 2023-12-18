@@ -9,8 +9,10 @@ import {
 } from "mdb-react-ui-kit";
 import MessageStructure from "./MessageStructure";
 import Testimonial from "../Testimonial/Testimonial";
+import Spinner from "react-bootstrap/Spinner";
 
 export default function Messages() {
+  const [spiner, setSpiner] = useState(false);
   const [justifyActive, setJustifyActive] = useState("tab1");
   const [data, setData] = useState({});
   const [messageData, setMessageData] = useState([]);
@@ -30,12 +32,13 @@ export default function Messages() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setSpiner(true);
         const getUserData = await userData({ token: userToken });
 
         if (getUserData.status === 200) {
           setData(getUserData.data.data);
           //console.log("User data is: ", data);
-          console.log("User data Email is: ", data.email);
+          //console.log("User data Email is: ", data.email);
 
           const allMessage = await getMsg({
             email: data.email || "vishalkumar.yadav2021a@vitstudent.ac.in",
@@ -45,10 +48,12 @@ export default function Messages() {
             request: true,
           });
           if (allMessage.status === 200) {
+            setSpiner(false);
             console.log("All user messages: ", allMessage.data.dataArray);
             setMessageData(allMessage.data.dataArray);
           }
           if (alltestimonial.status === 200) {
+            setSpiner(false);
             console.log(
               "All user Testimonials: ",
               alltestimonial.data.dataArray
@@ -105,7 +110,11 @@ export default function Messages() {
           )}
         </MDBTabsPane>
         <MDBTabsPane open={justifyActive === "tab2"}>
-          {testimonialData.length === 0 ? (
+          {spiner ? (
+            <div className="text-center my-5" style={{ color: "black" }}>
+              Loading <Spinner animation="border" />
+            </div>
+          ) : testimonialData.length === 0 ? (
             <h1 className="text-center">No Testimonial To Display</h1>
           ) : (
             testimonialData.map((message, index) => (

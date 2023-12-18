@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { getAllSubject } from "../../Services/Apis";
 import "./Navbar.css";
 import { CgProfile } from "react-icons/cg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { userData } from "../../Services/Apis";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   const [data, setData] = useState({});
   const [dataFCBSAM, setDataFCBSAM] = useState([]);
   const [dataFCBES, setDataFCBES] = useState([]);
@@ -14,6 +16,11 @@ const Navbar = () => {
   const [dataDE, setDataDE] = useState([]);
   const userToken = sessionStorage.getItem("userdbtoken");
   const isLoggedIn = sessionStorage.getItem("loggedIn");
+
+  const handleLinkClick = (record, domain) => {
+    // You can pass the data as state using the 'state' property
+    navigate("/studymaterial", { state: { courseData: record, domain } });
+  };
 
   const handleLogoutClick = () => {
     sessionStorage.clear();
@@ -109,9 +116,12 @@ const Navbar = () => {
                     </li>
                     {dataFCBSAM?.map((record, i) => (
                       <li key={i}>
-                        <a className="dropdown-item" href="/">
+                        <button
+                          className="dropdown-item"
+                          onClick={() => handleLinkClick(record, "FCBSAM")}
+                        >
                           {record.courseTitle}
-                        </a>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -123,9 +133,12 @@ const Navbar = () => {
                     </li>
                     {dataFCBES?.map((record, i) => (
                       <li key={i}>
-                        <a className="dropdown-item" href="/">
+                        <button
+                          className="dropdown-item"
+                          onClick={() => handleLinkClick(record, "FCBES")}
+                        >
                           {record.courseTitle}
-                        </a>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -151,9 +164,12 @@ const Navbar = () => {
                     </li>
                     {dataDL?.map((record, i) => (
                       <li key={i}>
-                        <a className="dropdown-item" href="/">
+                        <button
+                          className="dropdown-item"
+                          onClick={() => handleLinkClick(record, "DL")}
+                        >
                           {record.courseTitle}
-                        </a>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -179,9 +195,12 @@ const Navbar = () => {
                     </li>
                     {dataDE?.map((record, i) => (
                       <li key={i}>
-                        <a className="dropdown-item" href="/">
+                        <button
+                          className="dropdown-item"
+                          onClick={() => handleLinkClick(record, "DE")}
+                        >
                           {record.courseTitle}
-                        </a>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -207,9 +226,12 @@ const Navbar = () => {
                     </li>
                     {dataDC?.map((record, i) => (
                       <li key={i}>
-                        <a className="dropdown-item" href="/">
+                        <button
+                          className="dropdown-item"
+                          onClick={() => handleLinkClick(record, "DC")}
+                        >
                           {record.courseTitle}
-                        </a>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -259,19 +281,13 @@ const Navbar = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            className="dropdown-item"
-                            to="/addpaper"
-                          >
+                          <Link className="dropdown-item" to="/addpaper">
                             Add Paper
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            className="dropdown-item"
-                            to="/addrefvdo"
-                          >
-                            Add Ref Vdo
+                          <Link className="dropdown-item" to="/addrefvdo">
+                            Add Ref Video
                           </Link>
                         </li>
                         <li>

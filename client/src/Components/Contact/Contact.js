@@ -24,7 +24,7 @@ const Contactus = () => {
             <br />
             <br />
           </p>
-          <button type="submit" className="btn btn-primary btn-lg">
+          <button type="submit" className="btn btn-primary">
             <Link className="contactusbtn" to="/contact">
               Send Message
             </Link>
