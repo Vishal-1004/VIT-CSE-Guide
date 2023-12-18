@@ -28,6 +28,7 @@ import AddSubject from "./Pages/Material/AddSubject";
 import AddStudyMaterial from "./Pages/Material/AddStudyMaterial";
 import AddPaper from "./Pages/Material/AddPaper";
 import AddRefVdo from "./Pages/Material/AddRefVdo";
+import Error from "./Pages/Error/Error";
 
 function App() {
   const [admin, setAdmin] = useState(false);
@@ -59,6 +60,7 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
+        <Route path="*" element={<Error />} />
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
