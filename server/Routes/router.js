@@ -22,6 +22,7 @@ router.post('/user/subject/paper',controllers.Paper);
 router.post('/user/subject/refvdo',controllers.RefVdos);
 router.delete('/user/subject/deletestudymat',controllers.deleteStudyMaterial);
 router.delete('/user/subject/deletepaper',controllers.deletePaper);
-router.delete('/user/subject/deleterefvdo',controllers.deleteRefVideo)
+router.delete('/user/subject/deleterefvdo',controllers.deleteRefVideo);
+router.post('/user/subject/getmaterial',controllers.getMaterial);
 
 module.exports = router;

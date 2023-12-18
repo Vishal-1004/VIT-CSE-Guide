@@ -585,3 +585,31 @@ exports.deleteRefVideo = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+// get all materials
+
+exports.getMaterial = async (req, res) => {
+  try {
+    const { domain, courseTitle } = req.body;
+
+    const Subjectname = await subject.findOne({ domain });
+    // console.log('Found Subject:', Subjectname);
+    if (!Subjectname) {
+      return res.status(404).json({ message: "Domain Not found" });
+    }
+
+    const contentItem = Subjectname.content.find(
+      (item) => item.courseTitle === courseTitle
+    );
+    if (!contentItem) {
+      return res.status(404).json({
+        message: "CourseTitle not found under specific domain",
+      });
+    }
+    else {
+      res.status(200).json({message: "Domain and subject exist",studyMaterial: contentItem.studyMaterials, paper: contentItem.papers , refvdo:contentItem.referenceVideos })
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
