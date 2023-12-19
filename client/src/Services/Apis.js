@@ -96,3 +96,11 @@ export const getAllMaterials = async (data) => {
     data
   );
 };
+
+export const deletePaper = async (data) => {
+  return await commonrequest(
+    "DELETE",
+    `${BACKEND_URL}/user/subject/deletepaper`,
+    data
+  );
+};

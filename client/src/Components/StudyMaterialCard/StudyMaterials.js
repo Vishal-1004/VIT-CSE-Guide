@@ -188,7 +188,11 @@ const Studymaterials = () => {
             Loading <Spinner animation="border" />
           </div>
         ) : (
-          <QuestionPapers questionPapers={questionPapers} />
+          <QuestionPapers
+            questionPapers={questionPapers}
+            domain={domain}
+            courseTitle={courseData.courseTitle}
+          />
         )}
       </div>
       <div className="container my-3">

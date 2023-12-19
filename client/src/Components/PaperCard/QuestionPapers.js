@@ -1,10 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import { deletePaper, userData } from "../../Services/Apis";
 
-const QuestionPapers = ({ questionPapers }) => {
+const QuestionPapers = ({ questionPapers, domain, courseTitle }) => {
+  const [data, setData] = useState({});
+  const userToken = sessionStorage.getItem("userdbtoken");
+  const isLoggedIn = sessionStorage.getItem("loggedIn");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const getUserData = await userData({ token: userToken });
+        if (getUserData.status === 200) {
+          // Set the fetched user data to the component state
+          setData(getUserData.data.data);
+          //console.log("User data is: ", data);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    // Check if the user is logged in before making the API call
+    if (isLoggedIn) {
+      fetchData();
+    }
+  }, [isLoggedIn, userToken]);
+
+  const handleDelete = async (domain, title, paperId) => {
+    try {
+      const response = await deletePaper({
+        domain: domain,
+        courseTitle: title,
+        paperId: paperId,
+      });
+
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        window.location.reload();
+      } else {
+        toast.error(response.data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
     <>
+      <ToastContainer />
       {questionPapers?.length <= 2 ? (
         <div className="d-flex justify-content-center">
           <div className="card" style={{ width: "25rem" }}>
@@ -29,7 +75,10 @@ const QuestionPapers = ({ questionPapers }) => {
                 <div
                   class="custom-box"
                   key={index}
-                  style={{ width: "18rem", height: "13rem" }}
+                  style={{
+                    width: "18rem",
+                    height: data.isAdmin ? "15rem" : "13rem",
+                  }}
                 >
                   <div class="card-body d-flex align-items-center justify-content-between flex-column">
                     <h2 class="card-text">
@@ -58,6 +107,15 @@ const QuestionPapers = ({ questionPapers }) => {
                         Click Here
                       </a>
                     </button>
+                    <button
+                      className="btn custome-btn-style btn-outline-danger my-2"
+                      style={{ display: data.isAdmin ? "" : "none" }}
+                      onClick={() =>
+                        handleDelete(domain, courseTitle, element._id)
+                      }
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               ))}
@@ -67,7 +125,10 @@ const QuestionPapers = ({ questionPapers }) => {
                 <div
                   class="custom-box"
                   key={index}
-                  style={{ width: "18rem", height: "13rem" }}
+                  style={{
+                    width: "18rem",
+                    height: data.isAdmin ? "15rem" : "13rem",
+                  }}
                 >
                   <div class="card-body d-flex align-items-center justify-content-between flex-column">
                     <h2 class="card-text">
@@ -95,6 +156,15 @@ const QuestionPapers = ({ questionPapers }) => {
                       >
                         Click Here
                       </a>
+                    </button>
+                    <button
+                      className="btn custome-btn-style btn-outline-danger my-2"
+                      style={{ display: data.isAdmin ? "" : "none" }}
+                      onClick={() =>
+                        handleDelete(domain, courseTitle, element._id)
+                      }
+                    >
+                      Delete
                     </button>
                   </div>
                 </div>
@@ -158,6 +228,5 @@ const CarouselStyle = styled.section`
     animation: 15s slide infinite linear;
   }
 `;
-
 
 export default QuestionPapers;
