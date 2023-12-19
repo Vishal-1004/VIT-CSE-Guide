@@ -183,7 +183,13 @@ const Studymaterials = () => {
       </div>
       <div className="container my-3">
         <h2 className="h2-style main-heading">CAT / FAT</h2>
-        <QuestionPapers questionPapers={questionPapers} />
+        {spiner ? (
+          <div className="text-center my-5" style={{ color: "black" }}>
+            Loading <Spinner animation="border" />
+          </div>
+        ) : (
+          <QuestionPapers questionPapers={questionPapers} />
+        )}
       </div>
       <div className="container my-3">
         <h2 className="h2-style main-heading">Reference Videos</h2>

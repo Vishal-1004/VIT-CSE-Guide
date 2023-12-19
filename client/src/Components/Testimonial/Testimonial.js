@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Carousel from "react-multi-carousel";
 import styled from "styled-components";
 import Spinner from "react-bootstrap/Spinner";
 import { getTestimonials } from "../../Services/Apis";
