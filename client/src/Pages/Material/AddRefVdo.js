@@ -32,17 +32,16 @@ const AddRefVdo = () => {
 
     const toSendData = {
       domain: data.domain,
-      content:{
+      content: {
         courseTitle: data.courseTitle,
         referenceVideos: {
-            moduleNo: data.moduleNo,
-            videos: {
-                topic:data.topic,
-                videoLink:data.videoLink,
-            }
+          moduleNo: parseInt(data.moduleNo, 10),
+          videos: {
+            topic: data.topic,
+            videoLink: data.videoLink,
+          },
         },
-      }
-      
+      },
     };
 
     const response = await addRefvdo(toSendData);

@@ -496,12 +496,13 @@ exports.RefVdos = async (req, res) => {
       });
     }
 
-    const moduletoUpdate = contentItemToUpdate.referenceVideos.find(video => video.moduleNo === content.referenceVideos.moduleNo);
-      
-    if (!moduletoUpdate){
-        contentItemToUpdate.referenceVideos.push(content.referenceVideos);
-    }
-    else{
+    const moduletoUpdate = contentItemToUpdate.referenceVideos.find(
+      (video) => video.moduleNo === content.referenceVideos.moduleNo
+    );
+
+    if (!moduletoUpdate) {
+      contentItemToUpdate.referenceVideos.push(content.referenceVideos);
+    } else {
       moduletoUpdate.videos.push(content.referenceVideos.videos);
     }
     await Subjectname.save();

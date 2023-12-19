@@ -4,7 +4,6 @@ import { GrNext } from "react-icons/gr";
 import { Link, useLocation } from "react-router-dom";
 import "./Studymaterials.css";
 import QuestionPapers from "../PaperCard/QuestionPapers";
-import ReferenceVideos from "../ReferenceVideos/ReferenceVideos";
 import { getAllMaterials } from "../../Services/Apis";
 import Spinner from "react-bootstrap/Spinner";
 
@@ -71,6 +70,14 @@ const Studymaterials = () => {
   const [spiner, setSpiner] = useState(false);
   const [studyMaterialData, setStudyMaterialData] = useState([]);
   const [questionPapers, setQuestionPapers] = useState([]);
+  const [referenceVideo, setReferenceVideo] = useState([]);
+  const [activeModule, setActiveModule] = useState(0);
+
+  const handleLinkClick = (index) => {
+    //console.log("Before setting active module: ", activeModule);
+    setActiveModule(index);
+    //console.log("After setting active module: ", activeModule);
+  };
 
   useEffect(() => {
     const fetchMaterials = async () => {
@@ -91,6 +98,7 @@ const Studymaterials = () => {
           );
           setStudyMaterialData(materialData.data.studyMaterial);
           setQuestionPapers(materialData.data.paper);
+          setReferenceVideo(materialData.data.refvdo);
           //console.log("Study material data is: ", studyMaterialData);
         }
       } catch (error) {
@@ -197,7 +205,78 @@ const Studymaterials = () => {
       </div>
       <div className="container my-3">
         <h2 className="h2-style main-heading">Reference Videos</h2>
-        <ReferenceVideos />
+        <div>
+          {spiner ? (
+            <div className="text-center my-5" style={{ color: "black" }}>
+              Loading <Spinner animation="border" />
+            </div>
+          ) : referenceVideo.length === 0 ? (
+            <div className="d-flex justify-content-center">
+              <div className="card" style={{ width: "25rem" }}>
+                <h5 className="card-header">No Content To Display</h5>
+                <div className="card-body">
+                  <h5 className="card-title">Can you help us ?</h5>
+                  <p className="card-text">
+                    Currently, there's no study material here. <br />
+                    Interested in contributing? Contact us to share your
+                    resources!
+                  </p>
+                  <Link to="/contact" className="btn btn-outline-primary">
+                    Contact Us
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <>
+              <ul className="nav nav-pills justify-content-center">
+                {referenceVideo?.map((element, index) => (
+                  <li
+                    key={index}
+                    className={`nav-item ${
+                      activeModule === index ? "active" : ""
+                    }`}
+                  >
+                    <button
+                      className={`nav-link ${
+                        activeModule === index ? "active btn-style" : ""
+                      }`}
+                      onClick={() => handleLinkClick(index)}
+                    >
+                      Module {element.moduleNo}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <table className="table my-3 table-style text-center container">
+                <thead>
+                  <tr>
+                    <th>S no.</th>
+                    <th>Topic</th>
+                    <th>Video</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {referenceVideo[activeModule]?.videos.map((record, i) => (
+                    <tr key={i}>
+                      <td>{i + 1}</td>
+                      <td>{record.topic}</td>
+                      <td>
+                        <Link
+                          to={record.videoLink}
+                          className="btn click-style py-1 px-2"
+                          target="_blank"
+                        >
+                          Watch Now
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          )}
+        </div>
       </div>
     </>
   );
