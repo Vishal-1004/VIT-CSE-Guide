@@ -40,10 +40,10 @@ const Otp = () => {
 
         const getUserData = await userData({ token: response.data.userToken });
         if (getUserData.status === 200) {
-          console.log(
+          /*console.log(
             "Dispatch function is called from Otp.js with user data as: ",
             getUserData.data.data
-          );
+          );*/
           Dispatch(loginUser(getUserData.data.data));
 
           toast.success(response.data.message);

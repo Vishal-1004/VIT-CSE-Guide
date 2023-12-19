@@ -22,7 +22,7 @@ export default function Footer() {
         if (getUserData.status === 200) {
           // Set the fetched user data to the component state
           setData(getUserData.data.data);
-          console.log("User data is: ", data);
+          //console.log("User data is: ", data);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);

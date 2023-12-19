@@ -19,7 +19,7 @@ const Testimonial = () => {
       });
       if (alltestimonial.status === 200) {
         setSpiner(false);
-        console.log("All user Testimonials: ", alltestimonial.data.dataArray);
+        //console.log("All user Testimonials: ", alltestimonial.data.dataArray);
         setTestimonialData(alltestimonial.data.dataArray);
         //console.log("Testimonial is: ", alltestimonial);
       }
@@ -29,7 +29,7 @@ const Testimonial = () => {
   }, []);
 
   return (
-    <CarouselStyle className="container">
+    <CarouselStyle className="px-3">
       <h1 className="text-center my-3" style={{ color: "white" }}>
         Testimonial
       </h1>
@@ -38,75 +38,40 @@ const Testimonial = () => {
           Loading <Spinner animation="border" />
         </div>
       ) : (
-        <Carousel
-          additionalTransfrom={0}
-          arrows={true}
-          autoPlay={true}
-          autoPlaySpeed={1000}
-          centerMode={true}
-          className=""
-          containerClass="container-with-dots"
-          dotListClass=""
-          draggable
-          focusOnSelect={false}
-          infinite={false}
-          itemClass=""
-          keyBoardControl
-          minimumTouchDrag={80}
-          pauseOnHover
-          renderArrowsWhenDisabled={true}
-          renderButtonGroupOutside={false}
-          renderDotsOutside={false}
-          responsive={{
-            desktop: {
-              breakpoint: {
-                max: 3000,
-                min: 1024,
-              },
-              items: 3,
-              partialVisibilityGutter: 40,
-            },
-            mobile: {
-              breakpoint: {
-                max: 464,
-                min: 0,
-              },
-              items: 1,
-              partialVisibilityGutter: 30,
-            },
-            tablet: {
-              breakpoint: {
-                max: 1024,
-                min: 464,
-              },
-              items: 2,
-              partialVisibilityGutter: 30,
-            },
-          }}
-          rewind={true}
-          rewindWithAnimation={false}
-          rtl={false}
-          shouldResetAutoplay={true}
-          showDots={true}
-          sliderClass=""
-          slidesToSlide={1}
-          swipeable={true}
-        >
-          {testimonialData?.map((message, index) => (
-            <div
-              class="card"
-              key={index}
-              style={{ width: "20rem", height: "13rem" }}
-            >
-              <div class="card-body">
-                <p class="card-text">{message.msg}</p>
-                <h6 class="card-subtitle mb-2 text-muted text-center">
-                  - {message.fname}
-                </h6>
+        <div className="logos">
+          <div className="logos-slide">
+            {testimonialData?.map((message, index) => (
+              <div
+                class="custom-box"
+                key={index}
+                style={{ width: "18rem", height: "13rem" }}
+              >
+                <div class="card-body d-flex align-items-center justify-content-between flex-column">
+                  <p class="card-text">{message.msg}</p>
+                  <h6 class="card-subtitle mb-2 text-muted text-center">
+                    - {message.fname}
+                  </h6>
+                </div>
               </div>
-            </div>
-          ))}
-        </Carousel>
+            ))}
+          </div>
+          <div className="logos-slide">
+            {testimonialData?.map((message, index) => (
+              <div
+                class="custom-box"
+                key={index}
+                style={{ width: "18rem", height: "13rem" }}
+              >
+                <div class="card-body d-flex align-items-center justify-content-between flex-column">
+                  <p class="card-text">{message.msg}</p>
+                  <h6 class="card-subtitle mb-2 text-muted text-center">
+                    - {message.fname}
+                  </h6>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
     </CarouselStyle>
   );
@@ -114,20 +79,41 @@ const Testimonial = () => {
 
 const CarouselStyle = styled.section`
   min-height: 0;
-  h1 {
-    font-size: 2.5rem !important;
-    font-weight: 400 !important;
+  @keyframes slide {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
   }
 
-  .react-multi-carousel-item {
-    width: 350px !important;
-  }
-
-  .card-body {
+  .custom-box {
+    width: 18rem;
+    height: 13rem;
+    border: 1px solid #000;
+    margin: 0 20px; /* Adjusted margin */
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
+    flex-direction: column; /* Added flex-direction */
+    justify-content: space-between; /* Added space-between */
+    white-space: normal;
+    background-color: white;
+  }
+
+  .logos {
+    overflow: hidden;
+    padding: 30px 0;
+    background-color: inherit;
+    white-space: nowrap;
+  }
+
+  .logos:hover .logos-slide {
+    animation-play-state: paused;
+  }
+
+  .logos-slide {
+    display: inline-flex; /* Updated display property */
+    animation: 30s slide infinite linear;
   }
 `;
 

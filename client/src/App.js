@@ -43,7 +43,7 @@ function App() {
         // Set the fetched user data to the component state
         if (getUserData.status === 200) {
           setAdmin(getUserData.data.data.isAdmin);
-          console.log("User is admin : ", admin);
+          //console.log("User is admin : ", admin);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);

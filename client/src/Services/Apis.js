@@ -88,3 +88,11 @@ export const addRefvdo = async (data) =>{
     "POST", `${BACKEND_URL}/user/subject/refvdo`, data
   )
 }
+
+export const getAllMaterials = async (data) => {
+  return await commonrequest(
+    "POST",
+    `${BACKEND_URL}/user/subject/getmaterial`,
+    data
+  );
+};

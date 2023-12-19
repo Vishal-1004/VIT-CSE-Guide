@@ -1,211 +1,30 @@
 import React from "react";
-import Carousel from "react-multi-carousel";
-import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const QuestionPapers = () => {
+const QuestionPapers = ({ questionPapers }) => {
   return (
-    <CarouselStyle>
-      <Carousel
-        additionalTransfrom={0}
-        arrows={true}
-        autoPlay={true}
-        autoPlaySpeed={3000}
-        centerMode={true}
-        className=""
-        containerclassName="container-with-dots"
-        dotListclassName=""
-        draggable
-        focusOnSelect={false}
-        infinite={false}
-        itemclassName=""
-        keyBoardControl
-        minimumTouchDrag={80}
-        pauseOnHover
-        renderArrowsWhenDisabled={true}
-        renderButtonGroupOutside={false}
-        renderDotsOutside={false}
-        responsive={{
-          desktop: {
-            breakpoint: {
-              max: 3000,
-              min: 1024,
-            },
-            items: 3,
-            partialVisibilityGutter: 40,
-          },
-          mobile: {
-            breakpoint: {
-              max: 464,
-              min: 0,
-            },
-            items: 1,
-            partialVisibilityGutter: 30,
-          },
-          tablet: {
-            breakpoint: {
-              max: 1024,
-              min: 464,
-            },
-            items: 2,
-            partialVisibilityGutter: 30,
-          },
-        }}
-        rewind={true}
-        rewindWithAnimation={false}
-        rtl={false}
-        shouldResetAutoplay={true}
-        showDots={true}
-        sliderclassName=""
-        slidesToSlide={1}
-        swipeable={true}
-      >
-        <div className="card" style={{ width: "20rem" }}>
-          <svg
-            class="bd-placeholder-img card-img-top"
-            width="100%"
-            height="180"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder: Image cap"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#868e96"></rect>
-          </svg>
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="/" className="btn btn-primary">
-              Go somewhere
-            </a>
+    <>
+      {questionPapers.length === 0 ? (
+        <div className="d-flex justify-content-center">
+          <div className="card" style={{ width: "25rem" }}>
+            <h5 className="card-header">No Content To Display</h5>
+            <div className="card-body">
+              <h5 className="card-title">Can you help us ?</h5>
+              <p className="card-text">
+                Currently, there's no question paper here. <br />
+                Interested in contributing? Contact us to share your resources!
+              </p>
+              <Link to="/contact" className="btn btn-outline-primary">
+                Contact Us
+              </Link>
+            </div>
           </div>
         </div>
-        <div className="card" style={{ width: "20rem" }}>
-          <svg
-            class="bd-placeholder-img card-img-top"
-            width="100%"
-            height="180"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder: Image cap"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#868e96"></rect>
-          </svg>
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="/" className="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
-        </div>
-        <div className="card" style={{ width: "20rem" }}>
-          <svg
-            class="bd-placeholder-img card-img-top"
-            width="100%"
-            height="180"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder: Image cap"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#868e96"></rect>
-          </svg>
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="/" className="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
-        </div>
-        <div className="card" style={{ width: "20rem" }}>
-          <svg
-            class="bd-placeholder-img card-img-top"
-            width="100%"
-            height="180"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder: Image cap"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#868e96"></rect>
-          </svg>
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="/" className="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
-        </div>
-        <div className="card" style={{ width: "20rem" }}>
-          <svg
-            class="bd-placeholder-img card-img-top"
-            width="100%"
-            height="180"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder: Image cap"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#868e96"></rect>
-          </svg>
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="/" className="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
-        </div>
-      </Carousel>
-    </CarouselStyle>
+      ) : (
+        <div>We have something to display</div>
+      )}
+    </>
   );
 };
-
-const CarouselStyle = styled.section`
-  min-height: 0;
-  h1 {
-    font-size: 2.5rem !important;
-    font-weight: 400 !important;
-  }
-
-  .react-multi-carousel-item {
-    width: 400px !important;
-  }
-
-  .card-body {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-  }
-`;
 
 export default QuestionPapers;
