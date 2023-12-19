@@ -470,7 +470,7 @@ exports.Paper = async (req, res) => {
 
     res
       .status(200)
-      .json({ message: "Study material added successfully", Subjectname });
+      .json({ message: "Paper added successfully", Subjectname });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -496,12 +496,19 @@ exports.RefVdos = async (req, res) => {
       });
     }
 
-    contentItemToUpdate.referenceVideos.push(content.referenceVideos);
+    const moduletoUpdate = contentItemToUpdate.referenceVideos.find(video => video.moduleNo === content.referenceVideos.moduleNo);
+      
+    if (!moduletoUpdate){
+        contentItemToUpdate.referenceVideos.push(content.referenceVideos);
+    }
+    else{
+      moduletoUpdate.videos.push(content.referenceVideos.videos);
+    }
     await Subjectname.save();
 
     res
       .status(200)
-      .json({ message: "Study material added successfully", Subjectname });
+      .json({ message: "Reference Video added successfully", Subjectname });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
