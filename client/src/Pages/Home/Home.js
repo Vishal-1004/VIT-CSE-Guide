@@ -44,6 +44,10 @@ const Home = () => {
     fetchData();
   }, [activeDomain]);
 
+  const handleSyllabusClick = (link) => {
+    window.open(link,'_blank');
+  }
+
   return (
     <>
       <Hero />
@@ -98,13 +102,11 @@ const Home = () => {
                   <td>{record.courseTitle}</td>
                   <td>{record.credits}</td>
                   <td>
-                    <Link
-                      to={record.syllabus}
+                    <button onClick={() => handleSyllabusClick(record.syllabus)}
                       className="btn click-style py-1 px-2"
-                      target="_blank"
                     >
                       Click
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               ))}
