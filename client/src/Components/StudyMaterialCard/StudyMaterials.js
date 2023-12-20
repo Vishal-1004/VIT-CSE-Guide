@@ -4,27 +4,25 @@ import { GrNext } from "react-icons/gr";
 import { Link, useLocation } from "react-router-dom";
 import "./Studymaterials.css";
 import QuestionPapers from "../PaperCard/QuestionPapers";
-import { getAllMaterials } from "../../Services/Apis";
+import {
+  getAllMaterials,
+  userData,
+  deleteRefVideo,
+  deleteStudyMaterial,
+} from "../../Services/Apis";
 import Spinner from "react-bootstrap/Spinner";
-
-const truncateDescription = (text, wordLimit) => {
-  const words = text.split(" ");
-  if (words.length > wordLimit) {
-    return words.slice(0, wordLimit).join(" ") + "...";
-  }
-  return text;
-};
+import { ToastContainer, toast } from "react-toastify";
 
 const BlogCard = ({
   domain,
   courseTitle,
   title,
   subtitle,
-  imageUrl,
   readMoreLink,
   discription,
+  data,
+  materialId,
 }) => {
-  const truncatedDescription = truncateDescription(discription, 20);
   let newDomain = "";
   if (domain === "FCBSAM") {
     newDomain = "Foundation Core Basic Science & Maths";
@@ -37,27 +35,49 @@ const BlogCard = ({
   } else {
     newDomain = "Dicipline Core";
   }
+
+  const handleDeleteMaterial = async () => {
+    //console.log(domain, courseTitle, materialId);
+    try {
+      const response = await deleteStudyMaterial({
+        domain: domain,
+        courseTitle: courseTitle,
+        materialId: materialId,
+      });
+
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        window.location.reload();
+      } else {
+        toast.error(response.data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
     <div className="blog-card">
-      <div className="meta">
-        <div
-          className="photo"
-          style={{ backgroundImage: `url(${imageUrl})` }}
-        ></div>
-        <ul className="details">
-          <li className="date">{courseTitle}</li>
-          <li className="author">{newDomain}</li>
-        </ul>
-      </div>
       <div className="description">
         <h1>Module {title}</h1>
         <h2>{subtitle}</h2>
-        <p>{truncatedDescription}</p>
+        <p>{discription}</p>
         <p className="read-more">
           <a href={readMoreLink} rel="noreferrer" target="_blank">
             Read More
           </a>
         </p>
+        {data.isAdmin ? (
+          <p className="read-more delete">
+            <button
+              className="btn btn-outline-danger"
+              style={{ color: "red !important" }}
+              onClick={() => handleDeleteMaterial()}
+            >
+              Delete
+            </button>
+          </p>
+        ) : null}
       </div>
     </div>
   );
@@ -73,10 +93,53 @@ const Studymaterials = () => {
   const [referenceVideo, setReferenceVideo] = useState([]);
   const [activeModule, setActiveModule] = useState(0);
 
+  const [data, setData] = useState({});
+  const userToken = sessionStorage.getItem("userdbtoken");
+  const isLoggedIn = sessionStorage.getItem("loggedIn");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const getUserData = await userData({ token: userToken });
+        if (getUserData.status === 200) {
+          // Set the fetched user data to the component state
+          setData(getUserData.data.data);
+          //console.log("User data is: ", data);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    // Check if the user is logged in before making the API call
+    if (isLoggedIn) {
+      fetchData();
+    }
+  }, [isLoggedIn, userToken]);
+
   const handleLinkClick = (index) => {
     //console.log("Before setting active module: ", activeModule);
     setActiveModule(index);
     //console.log("After setting active module: ", activeModule);
+  };
+
+  const handleRefVideoDelete = async (index) => {
+    try {
+      const response = await deleteRefVideo({
+        domain: domain,
+        courseTitle: courseData.courseTitle,
+        videoId: index,
+      });
+
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        window.location.reload();
+      } else {
+        toast.error(response.data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
@@ -111,6 +174,7 @@ const Studymaterials = () => {
 
   return (
     <>
+      <ToastContainer />
       <h1 className="text-center my-3">{courseData.courseTitle}</h1>
       <div className="container my-3">
         <h2 className="h2-style main-heading">Study Materials</h2>
@@ -151,12 +215,12 @@ const Studymaterials = () => {
                     <BlogCard
                       domain={domain}
                       courseTitle={courseData.courseTitle}
-                      tags={["Learn", "Code", "HTML", "CSS"]}
                       title={record.moduleNo}
                       subtitle={record.moduleName}
                       discription={record.moduleContent}
-                      imageUrl="https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg"
                       readMoreLink={record.materialLink}
+                      data={data}
+                      materialId={record._id}
                     />
                   </div>
                 </div>
@@ -217,7 +281,7 @@ const Studymaterials = () => {
                 <div className="card-body">
                   <h5 className="card-title">Can you help us ?</h5>
                   <p className="card-text">
-                    Currently, there's no study material here. <br />
+                    Currently, there's no reference video here. <br />
                     Interested in contributing? Contact us to share your
                     resources!
                   </p>
@@ -243,7 +307,9 @@ const Studymaterials = () => {
                       }`}
                       onClick={() => handleLinkClick(index)}
                     >
-                      Module {element.moduleNo}
+                      {element.videos.length >= 1
+                        ? `Module ${element.moduleNo}`
+                        : null}
                     </button>
                   </li>
                 ))}
@@ -253,6 +319,7 @@ const Studymaterials = () => {
                   <tr>
                     <th>S no.</th>
                     <th>Topic</th>
+                    {data.isAdmin ? <th>Action</th> : null}
                     <th>Video</th>
                   </tr>
                 </thead>
@@ -261,6 +328,16 @@ const Studymaterials = () => {
                     <tr key={i}>
                       <td>{i + 1}</td>
                       <td>{record.topic}</td>
+                      {data.isAdmin ? (
+                        <td>
+                          <button
+                            className="btn btn-outline-danger"
+                            onClick={() => handleRefVideoDelete(record._id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      ) : null}
                       <td>
                         <Link
                           to={record.videoLink}

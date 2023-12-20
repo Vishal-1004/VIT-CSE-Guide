@@ -9,6 +9,7 @@ const QuestionPapers = ({ questionPapers, domain, courseTitle }) => {
   const userToken = sessionStorage.getItem("userdbtoken");
   const isLoggedIn = sessionStorage.getItem("loggedIn");
 
+  //checking if user is admin or not
   useEffect(() => {
     const fetchData = async () => {
       try {

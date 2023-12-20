@@ -104,3 +104,19 @@ export const deletePaper = async (data) => {
     data
   );
 };
+
+export const deleteRefVideo = async (data) => {
+  return await commonrequest(
+    "DELETE",
+    `${BACKEND_URL}/user/subject/deleterefvdo`,
+    data
+  );
+};
+
+export const deleteStudyMaterial = async (data) => {
+  return await commonrequest(
+    "DELETE",
+    `${BACKEND_URL}/user/subject/deletestudymat`,
+    data
+  );
+};

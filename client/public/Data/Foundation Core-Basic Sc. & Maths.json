@@ -1,9 +1,0 @@
-[
-  { "SNo": 1, "Course Title": "Engineering Chemistry", "Credits": "3.0","Syllabus":"https://www.google.com/" },
-  { "SNo": 2, "Course Title": "Calculus", "Credits": "3.0","Syllabus":"https://www.google.com/" },
-  { "SNo": 3, "Course Title": "Differential Equa. & Transforms", "Credits": "4.0","Syllabus":"https://www.google.com/" },
-  { "SNo": 4, "Course Title": "Complex Variables & Linear Alg.", "Credits": "4.0","Syllabus":"https://www.google.com/" },
-  { "SNo": 5, "Course Title": "Probability & Statistics", "Credits": "3.0","Syllabus":"https://www.google.com/" },
-  { "SNo": 6, "Course Title": "Engineering Physics", "Credits": "3.0","Syllabus":"https://www.google.com/" }
-]
-
