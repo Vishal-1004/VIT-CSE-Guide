@@ -46,9 +46,8 @@ export default function Footer() {
                 VIT-CSE-Guide
               </h6>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis
-                eveniet reiciendis officia itaque consequatur est laudantium
-                maxime mollitia error sed!
+                Simplifying VIT student learning with curated materials,
+                question papers, and targeted YouTube reference videos.
               </p>
             </MDBCol>
 

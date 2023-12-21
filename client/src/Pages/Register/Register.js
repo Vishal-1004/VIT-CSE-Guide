@@ -58,9 +58,9 @@ const Register = () => {
           <div className="form_heading">
             <h1>Sign Up</h1>
             <p style={{ textAlign: "center" }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
-              qui odit molestiae ut a optio iure quia accusantium veritatis
-              minima.
+              Join our community by completing your registration. Dive into the
+              website's offerings and, for any assistance during registration,
+              reach out to us at <strong>vitcseguide@gmail.com</strong>
             </p>
           </div>
           <form>

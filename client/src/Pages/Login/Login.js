@@ -45,9 +45,9 @@ const Login = () => {
           <div className="form_heading">
             <h1>Welcome Back, Log In</h1>
             <p style={{ textAlign: "center" }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
-              illum veniam tempora eaque nulla accusantium, similique est
-              deleniti voluptatibus placeat.
+              Unleash the potential of our site with a quick login. Stuck or
+              confused? Don't hesitate to drop us a line at&nbsp;
+              <strong>vitcseguide@gmail.com</strong>
             </p>
           </div>
           <form>
