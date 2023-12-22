@@ -105,6 +105,14 @@ export const getAllMaterials = async (data) => {
   );
 };
 
+export const updateSyllabusLink = async (data) => {
+  return await commonrequest(
+    "POST",
+    `${BACKEND_URL}/user/subject/updatesyllabus`,
+    data
+  );
+};
+
 export const deletePaper = async (data) => {
   return await commonrequest(
     "DELETE",

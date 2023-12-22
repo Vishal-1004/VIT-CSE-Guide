@@ -437,6 +437,39 @@ exports.deleteSubject = async (req, res) => {
   }
 };
 
+// Update syllabus link for a subject of a domain
+exports.updateSyllabus = async (req, res) => {
+  try {
+    const { domain, courseId, syllabusLink } = req.body;
+    
+    // Find the domain
+    let existingDomain = await subject.findOne({ domain });
+
+    if (!existingDomain) {
+      return res.status(400).json({ message: "This Domain does not exist" });
+    }
+
+    // Find the subject in the domain
+    let subjectToUpdate = existingDomain.content.find(
+      (subject) => subject._id.toString() === courseId
+    );
+
+    if (!subjectToUpdate) {
+      return res.status(400).json({ message: "Subject not found" });
+    }
+
+    // Update the syllabus link
+    subjectToUpdate.syllabus = syllabusLink;
+    
+    // Save the changes
+    await existingDomain.save();
+
+    res.status(200).json({ message: "Syllabus link updated successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // add studymaterial for one subject 
 exports.studyMaterial = async (req, res) => {
   try {
