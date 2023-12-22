@@ -103,7 +103,9 @@ const QuestionPapers = ({ questionPapers, domain, courseTitle }) => {
                     <button className="btn custome-btn-style btn-outline-primary">
                       <a
                         className="cutome-link"
-                        href={element.paperMaterialLink} target="_blank"
+                        href={element.paperMaterialLink}
+                        target="_blank"
+                        rel="noreferrer"
                       >
                         Click Here
                       </a>

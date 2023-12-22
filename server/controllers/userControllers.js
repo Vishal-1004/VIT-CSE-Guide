@@ -122,6 +122,7 @@ exports.userOtpSend = async (req, res) => {
   }
 };
 
+// user login
 exports.userLogin = async (req, res) => {
   const { email, otp } = req.body;
 
@@ -148,7 +149,7 @@ exports.userLogin = async (req, res) => {
   }
 };
 
-// get all users
+// get all user's data form admin
 exports.getPaginateUsers = async (req, res) => {
   const search = req.body.search || "";
   if (search.length === 0) {
@@ -270,7 +271,7 @@ exports.sendMessage = async (req, res) => {
   }
 };
 
-// get all messages
+// get all messages form admin
 exports.getMessages = async (req, res) => {
   const { email } = req.body;
 
@@ -292,7 +293,7 @@ exports.getMessages = async (req, res) => {
   }
 };
 
-// delete message
+// delete message for admin
 exports.deleteMessage = async (req, res) => {
   const { index } = req.body;
 
@@ -313,7 +314,7 @@ exports.deleteMessage = async (req, res) => {
   }
 };
 
-// upload testimonial
+// upload testimonial for admin
 exports.uploadTestimonial = async (req, res) => {
   const { fname, email, message } = req.body;
 
@@ -331,7 +332,7 @@ exports.uploadTestimonial = async (req, res) => {
   }
 };
 
-// get all testimonial
+// get all testimonial for admin
 exports.getTestimonials = async (req, res) => {
   const { request } = req.body;
   try {
@@ -347,7 +348,7 @@ exports.getTestimonials = async (req, res) => {
   }
 };
 
-// delete a testimonial
+// delete a testimonial for admin
 exports.deleteTestimonial = async (req, res) => {
   const { index } = req.body;
 
@@ -368,7 +369,7 @@ exports.deleteTestimonial = async (req, res) => {
   }
 };
 
-// get all subject
+// get all subject of a domain
 exports.getAllSubject = async (req,res) => {
   try {
     const {domain} = req.body;
@@ -384,7 +385,7 @@ exports.getAllSubject = async (req,res) => {
   }
 }
 
-// add a new subject
+// add a new subject in a domain
 exports.Subject = async (req, res) => {
   try {
     const { domain, content } = req.body;
@@ -413,6 +414,30 @@ exports.Subject = async (req, res) => {
   }
 };
 
+// delete one subject of a domain
+exports.deleteSubject = async (req, res) => {
+  try {
+    const { domain, courseId } = req.body;
+
+    let existingDomain = await subject.findOne({ domain });
+
+    if (!existingDomain) {
+      res.status(400).json({ message: "This Domain does not exist" });
+    } else {
+      // Use $pull to remove the subdocument from the 'content' array
+      existingDomain.content.pull({ _id: courseId });
+
+      // Save the updated document
+      await existingDomain.save();
+
+      res.status(200).json({ message: "Subject Deleted successfully" });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// add studymaterial for one subject 
 exports.studyMaterial = async (req, res) => {
   try {
     const { domain, courseTitle, studyMaterials } = req.body;
@@ -445,6 +470,7 @@ exports.studyMaterial = async (req, res) => {
   }
 };
 
+// add paper for one subject
 exports.Paper = async (req, res) => {
   try {
     const { domain, content } = req.body;
@@ -476,6 +502,7 @@ exports.Paper = async (req, res) => {
   }
 };
 
+// addd ref video form one subject
 exports.RefVdos = async (req, res) => {
   try {
     const { domain, content } = req.body;
@@ -515,6 +542,7 @@ exports.RefVdos = async (req, res) => {
   }
 };
 
+// delete studymaterial for one subject
 exports.deleteStudyMaterial = async (req, res) => {
   const { domain, courseTitle, materialId } = req.body;
   try {
@@ -543,6 +571,7 @@ exports.deleteStudyMaterial = async (req, res) => {
   }
 };
 
+// delete paper for one subject
 exports.deletePaper = async (req, res) => {
   const { domain, courseTitle, paperId } = req.body;
   try {
@@ -571,6 +600,7 @@ exports.deletePaper = async (req, res) => {
   }
 };
 
+// delete ref video for one subject
 exports.deleteRefVideo = async (req, res) => {
   const { domain, courseTitle, videoId } = req.body;
   try {
@@ -595,7 +625,6 @@ exports.deleteRefVideo = async (req, res) => {
 };
 
 // get all materials
-
 exports.getMaterial = async (req, res) => {
   try {
     const { domain, courseTitle } = req.body;

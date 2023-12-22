@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getAllSubject } from "../../Services/Apis";
+import { getAllSubject, userData, deleteSubject } from "../../Services/Apis";
 import "./Home.css";
 import Testimonial from "../../Components/Testimonial/Testimonial";
 import Contactus from "../../Components/Contact/Contact";
 import Hero from "../../Components/Hero/Hero";
 import Spinner from "react-bootstrap/Spinner";
+import { ToastContainer, toast } from "react-toastify";
 //import Hero from "../../Components/Hero/Hero";
 
 const Home = () => {
@@ -14,12 +15,55 @@ const Home = () => {
   const [activeDomain, setActiveDomain] = useState("FCBSAM");
   const [data, setData] = useState([]);
 
+  const [admin, setAdmin] = useState(false);
+  const userToken = sessionStorage.getItem("userdbtoken");
+  const isLoggedIn = sessionStorage.getItem("loggedIn");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const getUserData = await userData({ token: userToken });
+
+        // Set the fetched user data to the component state
+        if (getUserData.status === 200) {
+          setAdmin(getUserData.data.data.isAdmin);
+          //console.log("User is admin : ", admin);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    // Check if the user is logged in before making the API call
+    if (isLoggedIn) {
+      fetchData();
+    }
+  }, [isLoggedIn, userToken]);
+
   const buttons = {
     "Foundation Core-Basic Sc. & Maths": "FCBSAM",
     "Foundation Core- Basic Engineering Sc": "FCBES",
     "Discipline-Linked": "DL",
     "Discipline Elective": "DE",
     "Discipline Core": "DC",
+  };
+
+  const handleDeleteClick = async (index, activeDomain) => {
+    try {
+      const response = await deleteSubject({
+        domain: activeDomain,
+        courseId: index,
+      });
+
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        window.location.reload();
+      } else {
+        toast.error(response.data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   const handleLinkClick = (index) => {
@@ -45,11 +89,12 @@ const Home = () => {
   }, [activeDomain]);
 
   const handleSyllabusClick = (link) => {
-    window.open(link,'_blank');
-  }
+    window.open(link, "_blank");
+  };
 
   return (
     <>
+      <ToastContainer />
       <Hero />
       <div className="my-3">
         <div className="container">
@@ -92,6 +137,7 @@ const Home = () => {
                 <th>S no.</th>
                 <th>Course Title</th>
                 <th>Credits</th>
+                {admin ? <th>Action</th> : null}
                 <th>Syllabus</th>
               </tr>
             </thead>
@@ -101,8 +147,21 @@ const Home = () => {
                   <td>{i + 1}</td>
                   <td>{record.courseTitle}</td>
                   <td>{record.credits}</td>
+                  {admin ? (
+                    <td>
+                      <button
+                        className="btn btn-outline-danger py-1 px-2"
+                        onClick={() =>
+                          handleDeleteClick(record._id, activeDomain)
+                        }
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  ) : null}
                   <td>
-                    <button onClick={() => handleSyllabusClick(record.syllabus)}
+                    <button
+                      onClick={() => handleSyllabusClick(record.syllabus)}
                       className="btn click-style py-1 px-2"
                     >
                       Click

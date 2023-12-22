@@ -17,6 +17,7 @@ router.post("/user/uploadtestimonial", controllers.uploadTestimonial);
 router.post("/user/alltestimonial", controllers.getTestimonials);
 router.post("/user/allsubject", controllers.getAllSubject);
 router.post("/user/subject",controllers.Subject);
+router.delete("/user/deletesubject", controllers.deleteSubject);
 router.post('/user/subject/studymaterial', controllers.studyMaterial);
 router.post('/user/subject/paper',controllers.Paper);
 router.post('/user/subject/refvdo',controllers.RefVdos);

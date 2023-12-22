@@ -65,6 +65,14 @@ export const addSubject = async (data) => {
   return await commonrequest("POST", `${BACKEND_URL}/user/subject`, data);
 };
 
+export const deleteSubject = async (data) => {
+  return await commonrequest(
+    "DELETE",
+    `${BACKEND_URL}/user/deletesubject`,
+    data
+  );
+};
+
 export const getAllSubject = async (data) => {
   return await commonrequest("POST", `${BACKEND_URL}/user/allsubject`, data);
 };
