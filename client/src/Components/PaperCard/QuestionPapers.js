@@ -101,14 +101,14 @@ const QuestionPapers = ({ questionPapers, domain, courseTitle }) => {
                       <p>{element.year}</p>
                     </div>
                     <button className="btn custome-btn-style btn-outline-primary">
-                      <a
+                      <Link
                         className="cutome-link"
-                        href={element.paperMaterialLink}
+                        to={element.paperMaterialLink}
                         target="_blank"
                         rel="noreferrer"
                       >
                         Click Here
-                      </a>
+                      </Link>
                     </button>
                     <button
                       className="btn custome-btn-style btn-outline-danger my-2"
