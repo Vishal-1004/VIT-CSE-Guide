@@ -17,7 +17,7 @@ export default function ProfilePage() {
 
         // Set the fetched user data to the component state
         setData(getUserData.data.data);
-        console.log("User data is: ", data);
+        //console.log("User data is: ", data);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -61,16 +61,18 @@ export default function ProfilePage() {
               <h3 className="color_sec py-4">Report An Issue</h3>
               <address>
                 <strong>Email:</strong>
-                <span>&nbsp;&nbsp;Loremipsumdolor@gmail.com</span>
+                <span>&nbsp;&nbsp;vitcseguide@gmail.com</span>
                 <br />
               </address>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex amet
-                facere in. Iure quis laboriosam neque minus odit quo perferendis
-                iste eligendi quibusdam facere, molestiae error saepe quam culpa
-                voluptates asperiores magni modi! At, voluptas atque sint id
-                similique assumenda alias aut inventore sequi quisquam ea
-                quibusdam? Dignissimos, porro aspernatur!
+                Feel free to reach out to us for any assistance you may need
+                while navigating our website; we are dedicated to addressing
+                your concerns promptly. For an even swifter response, we
+                encourage you to contact us via email. If you have materials to
+                share, kindly upload them to your drive and share the link with
+                us in the designated message section. Your cooperation is
+                invaluable, and we're committed to ensuring your experience with
+                us is seamless.
               </p>
             </div>
             <div lg="7" className="col-12 col-md-6 d-flex align-items-center">

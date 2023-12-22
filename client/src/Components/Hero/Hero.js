@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const navigate = useNavigate();
+  const isLoggedIn = sessionStorage.getItem("loggedIn");
 
   const handleButtonClick = () => {
     // Navigate to "/login"
@@ -33,12 +34,16 @@ const Hero = () => {
               className="auto-type"
             />
             <br />
-            <button
-              className="btn btn-outline-success my-3"
-              onClick={handleButtonClick}
-            >
-              Create Account
-            </button>
+            {isLoggedIn ? (
+              <h3 className="my-3">Simplifying VIT student learning</h3>
+            ) : (
+              <button
+                className="btn btn-outline-success my-3"
+                onClick={handleButtonClick}
+              >
+                Create Account
+              </button>
+            )}
           </div>
           <div className="col col-md-6 my-2">
             <img
