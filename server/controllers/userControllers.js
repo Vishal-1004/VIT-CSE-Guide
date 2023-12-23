@@ -637,25 +637,47 @@ exports.deletePaper = async (req, res) => {
 exports.deleteRefVideo = async (req, res) => {
   const { domain, courseTitle, videoId } = req.body;
   try {
-    const data = await subject.findOne({ domain, "content.courseTitle": courseTitle, "content.referenceVideos.videos._id": videoId });
+    const data = await subject.findOne({
+      domain,
+      "content.courseTitle": courseTitle,
+      "content.referenceVideos.videos._id": videoId,
+    });
     if (!data) {
       return res.status(404).json({ error: "Document not found" });
     }
-    const contentIndex = data.content.findIndex((item) => item.courseTitle === courseTitle);
-    const module = data.content[contentIndex].referenceVideos.find(m =>
-      m.videos.some(v => v._id.toString() === videoId)
+
+    const contentIndex = data.content.findIndex(
+      (item) => item.courseTitle === courseTitle
     );
+    const module = data.content[contentIndex].referenceVideos.find((m) =>
+      m.videos.some((v) => v._id.toString() === videoId)
+    );
+
     if (!module) {
       return res.status(404).json({ error: "Module not found" });
     }
-    const videoIndex = module.videos.findIndex(v => v._id.toString() === videoId);
+
+    const videoIndex = module.videos.findIndex(
+      (v) => v._id.toString() === videoId
+    );
     module.videos.splice(videoIndex, 1);
+
+    // Check if the module's videos array is now empty
+    if (module.videos.length === 0) {
+      // Remove the entire module from referenceVideos array
+      data.content[contentIndex].referenceVideos.splice(
+        data.content[contentIndex].referenceVideos.indexOf(module),
+        1
+      );
+    }
+
     await data.save();
     res.status(200).json({ message: "Deleted successfully" });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
+
 
 // get all materials
 exports.getMaterial = async (req, res) => {
