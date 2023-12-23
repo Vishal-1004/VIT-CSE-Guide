@@ -123,6 +123,56 @@ const QuestionPapers = ({ questionPapers, domain, courseTitle }) => {
                 </div>
               ))}
             </div>
+            <div className="logos-slide">
+              {questionPapers?.map((element, index) => (
+                <div
+                  class="custom-box"
+                  key={index}
+                  style={{
+                    width: "18rem",
+                    height: data.isAdmin ? "15rem" : "13rem",
+                  }}
+                >
+                  <div class="card-body d-flex align-items-center justify-content-between flex-column">
+                    <h2 class="card-text">
+                      {element.examType}&nbsp;
+                      {element.examTypeNo === 0
+                        ? null
+                        : `- ${element.examTypeNo}`}
+                    </h2>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <p>
+                        <strong>Slot: &nbsp;</strong>
+                      </p>
+                      <p>{element.slot}</p>
+                    </div>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <p>
+                        <strong>Year: &nbsp;</strong>
+                      </p>
+                      <p>{element.year}</p>
+                    </div>
+                    <button className="btn custome-btn-style btn-outline-primary">
+                      <a
+                        className="cutome-link"
+                        href={element.paperMaterialLink}
+                      >
+                        Click Here
+                      </a>
+                    </button>
+                    <button
+                      className="btn custome-btn-style btn-outline-danger my-2"
+                      style={{ display: data.isAdmin ? "" : "none" }}
+                      onClick={() =>
+                        handleDelete(domain, courseTitle, element._id)
+                      }
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </CarouselStyle>
       )}
