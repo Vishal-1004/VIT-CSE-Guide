@@ -32,7 +32,7 @@ const Register = () => {
       toast.error("Enter Your Name");
     } else if (email === "") {
       toast.error("Enter Your Email");
-    } else if (!email.includes("@vitstudent.ac.in")) {
+    } else if (!email.includes("@vitstudent.ac.in") || !email.includes("@vit.ac.in") || !email.includes("@vitbhopal.ac.in") || !email.includes("@vitapstudent.ac.in")) {
       // for testing purpose we are keeping it as "@" but later it should be "@vitstudent.ac.in"
       toast.error("Enter Valid Email");
     } else if (password === "") {
