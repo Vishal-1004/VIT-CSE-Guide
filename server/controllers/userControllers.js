@@ -17,6 +17,10 @@ const tarnsporter = nodemailer.createTransport({
   },
 });
 
+exports.api = async (req, res) => {
+  res.status(200).json({ message: "Server is working" });
+};
+
 // user Registration
 exports.userregister = async (req, res) => {
   const { fname, email, password, isAdmin } = req.body;
